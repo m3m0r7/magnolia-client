@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './app/index.tsx',
+  entry: './src/index.tsx',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', 'scss']
   },
   module: {
     rules: [
@@ -12,6 +12,34 @@ module.exports = {
         use: [
           {
             loader: 'ts-loader'
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("node-sass")
+            }
           }
         ]
       }
