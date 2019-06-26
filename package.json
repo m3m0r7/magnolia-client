@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "connected-react-router": "^6.4.0",
+    "history": "^4.9.0",
+    "react": "^16.8.6",
+    "react-cookies": "^0.1.1",
+    "react-dom": "^16.8.6",
+    "react-moment": "^0.9.2",
+    "react-router": "^5.0.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  }
+}
