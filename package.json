@@ -9,8 +9,15 @@
     "react-router": "^5.0.1"
   },
   "devDependencies": {
+    "@types/react": "^16.8.22",
+    "@types/react-dom": "^16.8.4",
     "browser-sync": "^2.26.7",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5"
+  },
+  "scripts": {
+    "build:dev" : "webpack --mode development"
   }
 }

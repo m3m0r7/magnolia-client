@@ -1,18 +1,24 @@
+const path = require('path');
+
 module.exports = {
+  entry: './app/index.tsx',
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
       {
-        test: /resources\/js\/.*\.js$/,
+        test: /\.tsx?$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'ts-loader'
           }
         ]
-      },
-      {
-        test: /\.yml$/,
-        use: [{ loader: 'json-loader' }, { loader: 'yaml-flat-loader' }]
       }
     ]
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'public/js')
   }
 };
