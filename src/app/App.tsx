@@ -1,8 +1,5 @@
 import * as React from 'react';
-interface Props {}
-interface State {
-  count: number;
-}
+import { Props, State } from './ReactInterface';
 
 export default class App extends React.Component<Props, State> {
   render() {
