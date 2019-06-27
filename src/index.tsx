@@ -11,8 +11,8 @@ import 'normalize.css';
 import './app/style/common.scss';
 
 // Containers
-import App from './app/App';
-import NotFound from "./app/containers/NotFound";
+import { App } from './app/App';
+import { NotFound } from "./app/containers/NotFound";
 
 // Stores
 import configureStore, { history } from './app/stores/configureStore';
