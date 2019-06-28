@@ -10,8 +10,10 @@ export const Login = () => {
     <div className="container container__login">
       <div>
         <div className="text-center"><div className="c-login-icon"></div></div>
-        <p><input className="c-login-input" placeholder="ENTER YOUR ID" /></p>
-        <p><input className="c-login-input" placeholder="ENTER YOUR PASSWORD" /></p>
+        <form>
+          <p><input type="text" className="c-login-input" placeholder="ID" /></p>
+          <p><input type="password" className="c-login-input" placeholder="PASSWORD" /></p>
+        </form>
       </div>
     </div>
   );
