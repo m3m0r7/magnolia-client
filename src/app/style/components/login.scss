@@ -1,4 +1,13 @@
 .c-login-icon {
+  display: inline-block;
   width: 100px;
+  height: 100px;
   border-radius: 50%;
+  border: 2px solid #555555;
+  background-color: #FFFFFF;
+  background-image: url(/img/hamster.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }

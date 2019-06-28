@@ -5,6 +5,11 @@ import { Login } from "./containers/Login";
 
 export const App = () => {
   return (
-    <Login />
+    <>
+      <div className="wallpaper-mask"></div>
+      <div className="front">
+        <Login />
+      </div>
+    </>
   );
 }
