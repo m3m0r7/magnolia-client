@@ -6,6 +6,7 @@ import { Login } from "./containers/Login";
 export const App = () => {
   return (
     <>
+      <div className="wallpaper"></div>
       <div className="wallpaper-mask"></div>
       <div className="front">
         <Login />
