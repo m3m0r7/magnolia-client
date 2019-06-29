@@ -16,7 +16,9 @@ export const Login = () => {
   return (
     <div className="container container__login">
       <div>
-        <div className="text-center"><div className="c-login-icon"></div></div>
+        <div className="text-center">
+          <div className="c-login-icon"></div>
+        </div>
         <form action="javascript:void(0)" onSubmit={loginAction}>
           <p><input ref={idRef} type="text" className="input c-login-input" placeholder="ID" /></p>
           <p><input ref={passwordRef} type="password" className="input c-login-input" placeholder="PASSWORD" /></p>
