@@ -1,16 +1,39 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Props, State } from './ReactInterface';
+import { connect } from 'react-redux'
 
-import { Login } from "./containers/Login";
+import Login from "./containers/Login";
+import Main from "./containers/Main";
 
-export const App = () => {
+const App = () => {
+  useEffect(() => {
+    fetch('/api/v1/user')
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+
+      });
+  });
+
+  const container = true
+    ? <Login />
+    : <Login />;
+
   return (
     <>
       <div className="wallpaper"></div>
       <div className="wallpaper-mask"></div>
       <div className="front">
-        <Login />
+        { container }
       </div>
     </>
   );
-}
+};
+
+export default connect(
+  (state: any) => state,
+  (dispatch: any) => {
+    return {}
+  }
+)(App);

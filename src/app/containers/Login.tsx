@@ -1,11 +1,15 @@
 import * as React from 'react';
-const { useState, useRef } = React;
+import { connect } from 'react-redux'
 import { Props, State } from '../ReactInterface';
+import * as Action from '../Actions/Action';
+
 import '../style/components/login.scss';
 import '../style/components/input.scss';
 import '../style/containers/container.scss';
 
-export const Login = () => {
+const { useState, useRef } = React;
+
+const Login = (props: any) => {
   const idRef = useRef(null);
   const passwordRef = useRef(null);
   const loginAction = () => {
@@ -23,6 +27,7 @@ export const Login = () => {
         return response.json()
       })
       .then((json) => {
+        props.
         console.log(json);
       });
     return false;
@@ -41,4 +46,11 @@ export const Login = () => {
       </div>
     </div>
   );
-}
+};
+
+export default connect(
+  (state: any) => state,
+  (dispatch: any) => {
+    return {}
+  }
+)(Login);
