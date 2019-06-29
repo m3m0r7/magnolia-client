@@ -4,6 +4,7 @@
     "@material-ui/icons": "^4.0.0-rc.0",
     "connected-react-router": "^6.4.0",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "history": "^4.9.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
