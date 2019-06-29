@@ -11,6 +11,20 @@ export const Login = () => {
   const loginAction = () => {
     const id = (idRef.current as any).value;
     const password = (passwordRef.current as any).value;
+    fetch('/api/v1/login', {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({id, password})
+    } as any)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        console.log(json);
+      });
     return false;
   };
   return (

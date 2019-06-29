@@ -1,12 +1,28 @@
 const fs = require("fs");
 const express = require("express");
 const session = require('express-session');
+const bodyParser = require('body-parser');
+const Filter = require('./exteded/util/Filter');
 
 const app = express();
 const server = app.listen(80);
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Use express-session
+app.use(session({
+  secret: 'lily',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60 * 60 * 24 * 30 * 1000
+  },
+  name: 'sid',
+}));
+
 app.get('/api/v1/user', (req, res) => {
-  if (!req.session) {
+  if (!req.session.user) {
     res.json({
       status: 400,
       error: 'You did not logged-in.',
@@ -22,7 +38,7 @@ app.get('/api/v1/user', (req, res) => {
   }
   res.json({
     status: 200,
-    ...response,
+    ...Filter.filterUserData(req.session.user),
   });
 });
 
@@ -34,8 +50,9 @@ app.post('/api/v1/login', (req, res) => {
     });
     return;
   }
-  const expectedUserId = '';
-  const expectedPassword = '';
+
+  const expectedUserId = req.body.id || '';
+  const expectedPassword = req.body.password || '';
   const data = JSON.parse(fs.readFileSync(userInfo, 'UTF-8') || '{}');
 
   for (const userId of Object.keys(data)) {
@@ -44,6 +61,7 @@ app.post('/api/v1/login', (req, res) => {
       req.session.user = user;
       res.json({
         status: 200,
+        ...Filter.filterUserData(user)
       });
       return;
     }
@@ -53,17 +71,6 @@ app.post('/api/v1/login', (req, res) => {
     error: 'ID or Password are incorrect.'
   });
 });
-
-// Use express-session
-app.use(session({
-  secret: 'lily',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 60 * 60 * 24 * 30 * 1000
-  },
-  name: 'sid',
-}));
 
 app.use(express.static(__dirname + '/public'));
 app.use((req, res) => res.sendFile(__dirname + '/public/index.html'));
