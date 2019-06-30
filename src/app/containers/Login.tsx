@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Props, State } from '../ReactInterface';
 import * as Action from '../Actions/Action';
+import {
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+} from '../Actions/Types';
 
 import '../style/components/login.scss';
 import '../style/components/input.scss';
@@ -9,7 +13,8 @@ import '../style/containers/container.scss';
 
 const { useState, useRef } = React;
 
-const Login = (props: any) => {
+export const Login = (props: any) => {
+  const dispatch = useDispatch();
   const idRef = useRef(null);
   const passwordRef = useRef(null);
   const loginAction = () => {
@@ -27,8 +32,12 @@ const Login = (props: any) => {
         return response.json()
       })
       .then((json) => {
-        props.
-        console.log(json);
+        dispatch(
+          Action.Login(
+            LOGIN_SUCCESS,
+            json
+          )
+        );
       });
     return false;
   };
@@ -47,10 +56,3 @@ const Login = (props: any) => {
     </div>
   );
 };
-
-export default connect(
-  (state: any) => state,
-  (dispatch: any) => {
-    return {}
-  }
-)(Login);

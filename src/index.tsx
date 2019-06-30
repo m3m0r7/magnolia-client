@@ -11,13 +11,11 @@ import 'normalize.css';
 import './app/style/common.scss';
 
 // Containers
-import App from './app/App';
+import { App } from './app/App';
 import { NotFound } from "./app/containers/NotFound";
 
 // Stores
-import configureStore, { history } from './app/stores/configureStore';
-
-const store = configureStore();
+import configureStore, { history, store } from './app/stores/configureStore';
 
 ReactDOM.render(
   <Provider store={store}>

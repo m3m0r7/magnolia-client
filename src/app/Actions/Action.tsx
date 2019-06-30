@@ -1,6 +1,6 @@
-export const Login = () => {
+export const Login = (type: string, result: any = {}) => {
   return {
-    type: 'LOGIN',
-    status: 'SUCCESS',
+    type: type,
+    user: result,
   }
 };
