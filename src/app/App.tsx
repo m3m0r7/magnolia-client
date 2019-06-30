@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Props, State } from './ReactInterface';
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Login } from "./containers/Login";

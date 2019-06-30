@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Props, State } from '../ReactInterface';
 import * as Action from '../Actions/Action';
 import {
   LOGIN_FAILED,
