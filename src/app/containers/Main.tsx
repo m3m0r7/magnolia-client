@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import Icon from '@material-ui/core/Icon';
+
+// Load components
+import { history } from '../stores/configureStore';
 
 // Load screens
 import { LiveScreen } from "./screens/LiveScreen";
@@ -28,15 +31,19 @@ export const Main = (props: any) => {
 
   let screen = null;
 
+  let initialValue = 0;
   switch (route) {
     case 'histories':
+      initialValue = 1;
       screen = <HistoriesScreen />;
       break;
-    case 'settings':
-      screen = <SettingsScreen />;
-      break;
     case 'favorites':
+      initialValue = 2;
       screen = <FavoritesScreen />;
+      break;
+    case 'settings':
+      initialValue = 3;
+      screen = <SettingsScreen />;
       break;
     default:
       screen = <LiveScreen />;
@@ -48,7 +55,7 @@ export const Main = (props: any) => {
       { screen }
       <footer className="c-footer-navigation">
         <BottomNavigation
-          value={value}
+          value={initialValue}
           onChange={(event: any, newValue: any) => {
             let path = '/';
             switch (newValue) {
@@ -62,6 +69,7 @@ export const Main = (props: any) => {
                 path = '/settings';
                 break;
             }
+            history.push(path);
           }}
         >
           <BottomNavigationAction
