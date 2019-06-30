@@ -34,8 +34,13 @@ export const Login = (props: any) => {
       .then((json) => {
         dispatch(
           Action.Login(
-            LOGIN_SUCCESS,
-            json
+            json.status == 400
+              ? LOGIN_FAILED
+              : LOGIN_SUCCESS,
+            {
+              force: true,
+              ...json
+            }
           )
         );
       });

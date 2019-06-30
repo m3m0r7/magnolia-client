@@ -11,11 +11,10 @@ import { LOGIN_FAILED, LOGIN_SUCCESS } from "./Actions/Types";
 export const App = (props: any) => {
   const context = useSelector((state: any) => state);
   const dispatch = useDispatch();
-  let isLoading = !context.login.isLoggedIn;
+  const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
-    if (context.login.isLoggedIn) {
-      isLoading = false;
+    if (context.login.isLoggedIn !== null && !context.login.force) {
       return;
     }
     fetch('/api/v1/user')
@@ -23,10 +22,12 @@ export const App = (props: any) => {
         return response.json()
       })
       .then((json) => {
-        isLoading = false;
+        setIsLoading(false);
         dispatch(
           Action.Login(
-            LOGIN_SUCCESS,
+            json.status == 400
+              ? LOGIN_FAILED
+              : LOGIN_SUCCESS,
             json
           )
         );
