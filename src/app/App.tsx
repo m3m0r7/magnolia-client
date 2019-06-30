@@ -19,7 +19,7 @@ export const App = (props: any) => {
       .then((response) => {
         return response.json()
       })
-      .then((json) => {\
+      .then((json) => {
         dispatch(
           Action.Login(
             LOGIN_SUCCESS,
@@ -33,12 +33,12 @@ export const App = (props: any) => {
     <>
       {
         context.login.isLoggedIn
-          ? <Main />
+          ? <Main match={props.match} />
           : <>
               <div className="wallpaper"></div>
               <div className="wallpaper-mask"></div>
               <div className="front">
-                <Login />
+                <Login match={props.match} />
               </div>
             </>
       }

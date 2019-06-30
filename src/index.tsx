@@ -22,7 +22,19 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <>
         <Switch>
-          <Route exact path="/" render={() => <App />} />
+          <Route
+            exact
+            path="/(histories|favorites|settings|)?"
+            render={
+              (match: any) => {
+                return (
+                  <App
+                    match={match.match}
+                  />
+                );
+              }
+            }
+          />
           <Route render={() => <NotFound />} />
         </Switch>
       </>
