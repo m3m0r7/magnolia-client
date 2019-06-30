@@ -18,11 +18,11 @@ export const LiveScreen = (props: any) => {
       </div>
       <div className="c-card">
         <Card>
-          <CardContent>
+          <CardContent className="c-card__body">
             <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Room Temperature
+              Temp.
             </Typography>
-            <Typography variant="h5" component="h2">
+            <Typography className="c-card__value" variant="h5" component="h5">
               23.0 ℃
             </Typography>
           </CardContent>
@@ -30,11 +30,11 @@ export const LiveScreen = (props: any) => {
       </div>
       <div className="c-card">
         <Card>
-          <CardContent>
+          <CardContent className="c-card__body">
             <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Room Humidity
+              Humidity
             </Typography>
-            <Typography variant="h5" component="h2">
+            <Typography className="c-card__value" variant="h5" component="h5">
               50%
             </Typography>
           </CardContent>
@@ -42,11 +42,11 @@ export const LiveScreen = (props: any) => {
       </div>
       <div className="c-card">
         <Card>
-          <CardContent>
+          <CardContent className="c-card__body">
             <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Room Pressure
+              Pressure
             </Typography>
-            <Typography variant="h5" component="h2">
+            <Typography className="c-card__value" variant="h5" component="h5">
               1,000 Pa (Low)
             </Typography>
           </CardContent>
@@ -54,11 +54,11 @@ export const LiveScreen = (props: any) => {
       </div>
       <div className="c-card">
         <Card>
-          <CardContent>
+          <CardContent className="c-card__body">
             <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              CPU Temperature
+              CPU Temp.
             </Typography>
-            <Typography variant="h5" component="h2">
+            <Typography className="c-card__value" variant="h5" component="h5">
               65.3 ℃
             </Typography>
           </CardContent>
