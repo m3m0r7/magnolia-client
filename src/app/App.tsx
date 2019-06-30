@@ -40,8 +40,7 @@ export const App = (props: any) => {
       maxWidth="sm"
       style={
         {
-          paddingLeft:0,
-          paddingRight: 0,
+          padding: 0,
         }
       }
     >
