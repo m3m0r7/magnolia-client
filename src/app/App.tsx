@@ -3,7 +3,7 @@ import { Props, State } from './ReactInterface';
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Login } from "./containers/Login";
-import Main from "./containers/Main";
+import { Main } from "./containers/Main";
 import * as Action from "./Actions/Action";
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "./Actions/Types";
 
