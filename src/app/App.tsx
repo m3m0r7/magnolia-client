@@ -32,18 +32,15 @@ export const App = (props: any) => {
   return (
     <>
       {
-        context.login.isLoggedIn &&
-          <Main />
-      }
-      {
-        !context.login.isLoggedIn &&
-          <>
-            <div className="wallpaper"></div>
-            <div className="wallpaper-mask"></div>
-            <div className="front">
-              <Login />
-            </div>
-          </>
+        context.login.isLoggedIn
+          ? <Main />
+          : <>
+              <div className="wallpaper"></div>
+              <div className="wallpaper-mask"></div>
+              <div className="front">
+                <Login />
+              </div>
+            </>
       }
     </>
   );
