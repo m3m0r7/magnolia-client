@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import * as Action from '../Actions/Action';
+import * as Action from '../actions/Action';
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
-} from '../Actions/Types';
+} from '../actions/Types';
 
 import '../style/components/login.scss';
 import '../style/components/input.scss';

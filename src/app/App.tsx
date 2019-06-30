@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Login } from "./containers/Login";
 import { Main } from "./containers/Main";
 import { Loading } from "./containers/Loading";
-import * as Action from "./Actions/Action";
-import { LOGIN_FAILED, LOGIN_SUCCESS } from "./Actions/Types";
+import * as Action from "./actions/Action";
+import { LOGIN_FAILED, LOGIN_SUCCESS } from "./actions/Types";
 
 export const App = (props: any) => {
   const context = useSelector((state: any) => state);
