@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Login } from "./containers/Login";
 import { Main } from "./containers/Main";
+import { Loading } from "./containers/Loading";
 import * as Action from "./Actions/Action";
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "./Actions/Types";
 
 export const App = (props: any) => {
   const context = useSelector((state: any) => state);
   const dispatch = useDispatch();
+  let isLoading = !context.login.isLoggedIn;
 
   useEffect(() => {
     if (context.login.isLoggedIn) {
+      isLoading = false;
       return;
     }
     fetch('/api/v1/user')
@@ -20,6 +23,7 @@ export const App = (props: any) => {
         return response.json()
       })
       .then((json) => {
+        isLoading = false;
         dispatch(
           Action.Login(
             LOGIN_SUCCESS,
@@ -32,7 +36,10 @@ export const App = (props: any) => {
   return (
     <>
       {
-        context.login.isLoggedIn
+        isLoading && <Loading />
+      }
+      {
+        !isLoading && (context.login.isLoggedIn
           ? <Main match={props.match} />
           : <>
               <div className="wallpaper"></div>
@@ -41,6 +48,7 @@ export const App = (props: any) => {
                 <Login match={props.match} />
               </div>
             </>
+          )
       }
     </>
   );
