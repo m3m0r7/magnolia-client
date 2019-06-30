@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+
+import Container from '@material-ui/core/Container';
 
 import { Login } from "./containers/Login";
 import { Main } from "./containers/Main";
@@ -34,7 +36,15 @@ export const App = (props: any) => {
   });
 
   return (
-    <>
+    <Container
+      maxWidth="sm"
+      style={
+        {
+          paddingLeft:0,
+          paddingRight: 0,
+        }
+      }
+    >
       {
         isLoading && <Loading />
       }
@@ -50,6 +60,6 @@ export const App = (props: any) => {
             </>
           )
       }
-    </>
+    </Container>
   );
 };
