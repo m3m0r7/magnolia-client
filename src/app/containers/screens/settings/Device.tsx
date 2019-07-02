@@ -46,7 +46,6 @@ export const Device = (props: any) => {
         return response.json()
       })
       .then((json: any) => {
-        console.log(json);
         setInfo(json);
       });
   });
@@ -81,7 +80,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Temperature"
-                secondary="- ℃"
+                secondary={`${info ? (info as any).info.temperature : '-'} ℃`}
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -90,7 +89,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Humidity"
-                secondary="- %"
+                secondary={`${info ? (info as any).info.humidity : '-'} %`}
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -99,7 +98,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Pressure"
-                secondary="- Pa"
+                secondary={`${info ? (info as any).info.pressure : '-'} Pa`}
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -132,7 +131,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Device Version"
-                secondary="-"
+                secondary={info ? Object.values((info as any).versions.device).join(' / ') : '-'}
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -141,7 +140,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Application Version"
-                secondary="-"
+                secondary={info ? Object.values((info as any).versions.app).join(' / ') : '-'}
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -150,7 +149,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Live Streaming Server Version"
-                secondary="-"
+                secondary={info ? Object.values((info as any).versions.live_streaming).join(' / ') : '-'}
               />
             </ListItem>
           </List>

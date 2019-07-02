@@ -9,16 +9,16 @@ module.exports = (app, express, env) => {
       },
       versions: {
         device: {
-          number: '1.0.0',
+          number: '0.0.0',
           code: 'Magnolia',
           extra: 'Raspbian',
         },
         app: {
-          number: '1.0.0',
+          number: '0.0.0',
           code: 'Magnolia',
         },
         live_streaming: {
-          number: '1.0.0',
+          number: '0.0.0',
           code: 'Magnolia',
         },
       }
