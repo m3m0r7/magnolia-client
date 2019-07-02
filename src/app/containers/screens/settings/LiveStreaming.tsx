@@ -8,13 +8,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Switch from "@material-ui/core/Switch";
 import * as React from "react";
-import {createStyles, makeStyles, Theme} from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { useDispatch, useSelector } from 'react-redux';
+import * as Action from '../../../actions/Action';
+import * as Types from '../../../actions/Types';
 
 const { useState } = React;
 
 export const LiveStreaming = (props: any) => {
-  const [ wifiSetting, setWifiSetting ] = useState(false);
-  const [ retryConnectionSetting, setRetryConnectionSetting ] = useState(false);
+  const dispatch = useDispatch();
+  const selector = useSelector((state: any) => state);
   return (
     <>
       <List
@@ -36,8 +39,16 @@ export const LiveStreaming = (props: any) => {
           <ListItemSecondaryAction>
             <Switch
               edge="end"
-              onChange={() => setWifiSetting(!wifiSetting)}
-              checked={wifiSetting}
+              onChange={() => {
+                dispatch(
+                  Action.Setting(
+                    selector.setting.isWifiOnlyEnabled
+                      ? Types.OFF_SETTING_WIFI_ONLY
+                      : Types.ON_SETTING_WIFI_ONLY
+                  )
+                )
+              }}
+              checked={selector.setting.isWifiOnlyEnabled}
             />
           </ListItemSecondaryAction>
         </ListItem>
@@ -52,8 +63,16 @@ export const LiveStreaming = (props: any) => {
           <ListItemSecondaryAction>
             <Switch
               edge="end"
-              onChange={() => setRetryConnectionSetting(!retryConnectionSetting)}
-              checked={retryConnectionSetting}
+              onChange={() => {
+                dispatch(
+                  Action.Setting(
+                    selector.setting.isRetryConnectionEnabled
+                      ? Types.OFF_SETTING_RETRY_CONNECTION
+                      : Types.ON_SETTING_RETRY_CONNECTION
+                  )
+                )
+              }}
+              checked={selector.setting.isRetryConnectionEnabled}
             />
           </ListItemSecondaryAction>
         </ListItem>
