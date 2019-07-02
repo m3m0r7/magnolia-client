@@ -1,4 +1,14 @@
-.c-live-image {
+.c-live-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 56px);
+  width: 100vh;
   background-color: #000000;
+}
+
+.c-live-image {
+  background-color: #333333;
   height: 280px;
+  width: 100%;
 }

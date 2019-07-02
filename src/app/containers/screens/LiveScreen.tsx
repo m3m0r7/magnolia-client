@@ -13,56 +13,9 @@ const { useState, useRef } = React;
 export const LiveScreen = (props: any) => {
   return (
     <>
-      <div className="c-live-image">
-
-      </div>
-      <div className="c-card">
-        <Card>
-          <CardContent className="c-card__body">
-            <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Temp.
-            </Typography>
-            <Typography className="c-card__value" variant="h5" component="h5">
-              23.0 ℃
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="c-card">
-        <Card>
-          <CardContent className="c-card__body">
-            <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Humidity
-            </Typography>
-            <Typography className="c-card__value" variant="h5" component="h5">
-              50%
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="c-card">
-        <Card>
-          <CardContent className="c-card__body">
-            <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              Pressure
-            </Typography>
-            <Typography className="c-card__value" variant="h5" component="h5">
-              1,000 Pa (Low)
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="c-card">
-        <Card>
-          <CardContent className="c-card__body">
-            <Typography className="c-card__title" color="textSecondary" gutterBottom>
-              CPU Temp.
-            </Typography>
-            <Typography className="c-card__value" variant="h5" component="h5">
-              65.3 ℃
-            </Typography>
-          </CardContent>
-        </Card>
+      <div className="c-live-image-container">
+        <div className="c-live-image">
+        </div>
       </div>
     </>
   );
