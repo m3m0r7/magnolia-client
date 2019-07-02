@@ -107,7 +107,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="CPU Temperature"
-                secondary="- ℃"
+                secondary={`${info ? (info as any).info.cpu_temperature : '-'} ℃`}
               />
             </ListItem>
           </List>
