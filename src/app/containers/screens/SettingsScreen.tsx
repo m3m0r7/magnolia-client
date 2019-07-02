@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SettingsScreen = (props: any) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   function handleClick() {
     setOpen(!open);
