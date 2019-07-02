@@ -1,4 +1,4 @@
-const Filter = require('../util/Filter');
+const Filter = require('../../util/Filter');
 
 module.exports = (app, express, env) => {
   app.get('/api/v1/user', (req, res) => {

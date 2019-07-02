@@ -12,48 +12,48 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core";
 
 export const LiveStreaming = (props: any) => {
   return (
-    <List
-      component="nav"
-      subheader={
-        <ListSubheader component="div">
-          Live Streaming
-        </ListSubheader>
-      }
-    >
-      <ListItem>
-        <ListItemIcon>
-          <Icon>wifi</Icon>
-        </ListItemIcon>
-        <ListItemText
-          primary="WIFI only"
-          secondary="Live streaming connect to server Wifi only. otherwise, get static image every 30sec."
-        />
-        <ListItemSecondaryAction>
-          <Switch
-            edge="end"
-            onChange={() => true}
-            checked={true}
-            inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+    <>
+      <List
+        component="nav"
+        subheader={
+          <ListSubheader component="div">
+            Live Streaming
+          </ListSubheader>
+        }
+      >
+        <ListItem>
+          <ListItemIcon>
+            <Icon>wifi</Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="WIFI only"
+            secondary="Live streaming connect to server Wifi only. otherwise, get static image every 30sec."
           />
-        </ListItemSecondaryAction>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <Icon>refresh</Icon>
-        </ListItemIcon>
-        <ListItemText
-          primary="Retry connection"
-          secondary="The application retry connection if disconnected from server."
-        />
-        <ListItemSecondaryAction>
-          <Switch
-            edge="end"
-            onChange={() => true}
-            checked={true}
-            inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+          <ListItemSecondaryAction>
+            <Switch
+              edge="end"
+              onChange={() => {}}
+              checked={true}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <Icon>refresh</Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="Retry connection"
+            secondary="The application retry connection if disconnected from server."
           />
-        </ListItemSecondaryAction>
-      </ListItem>
-    </List>
+          <ListItemSecondaryAction>
+            <Switch
+              edge="end"
+              onChange={() => {}}
+              checked={true}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+    </>
   );
 }

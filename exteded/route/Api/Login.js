@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Filter = require('../../util/Filter');
 
 module.exports = (app, express, env) => {
   app.post('/api/v1/login', (req, res) => {

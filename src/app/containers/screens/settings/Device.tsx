@@ -17,6 +17,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
+const { useState, useEffect } = React;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -31,8 +33,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Device = (props: any) => {
   const classes = useStyles();
-  const [openInfo, setOpenInfo] = React.useState(false);
-  const [openVersion, setOpenVersion] = React.useState(false);
+  const [ info, setInfo ] = useState(null);
+  const [ openInfo, setOpenInfo ] = React.useState(false);
+  const [ openVersion, setOpenVersion ] = React.useState(false);
+
+  useEffect(() => {
+    if (info !== null) {
+      return;
+    }
+    fetch('/api/v1/info')
+      .then((response: any) => {
+        return response.json()
+      })
+      .then((json: any) => {
+        console.log(json);
+        setInfo(json);
+      });
+  });
 
   return (
     <>
@@ -64,7 +81,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Temperature"
-                secondary="24.5℃"
+                secondary="- ℃"
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -73,7 +90,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Humidity"
-                secondary="75%"
+                secondary="- %"
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -82,7 +99,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Pressure"
-                secondary="1000 Pa"
+                secondary="- Pa"
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -91,7 +108,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="CPU Temperature"
-                secondary="60.3℃"
+                secondary="- ℃"
               />
             </ListItem>
           </List>
@@ -115,7 +132,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Device Version"
-                secondary="v1.0.0 / Magnolia / Raspbian"
+                secondary="-"
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -124,7 +141,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Application Version"
-                secondary="v1.0.0 / Manolia"
+                secondary="-"
               />
             </ListItem>
             <ListItem className={classes.nested}>
@@ -133,7 +150,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Live Streaming Server Version"
-                secondary="v1.0.0 / Magnolia"
+                secondary="-"
               />
             </ListItem>
           </List>

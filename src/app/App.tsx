@@ -18,11 +18,13 @@ export const App = (props: any) => {
     if (context.login.isLoggedIn !== null && !context.login.force) {
       return;
     }
+
     fetch('/api/v1/user')
       .then((response) => {
         return response.json()
       })
       .then((json) => {
+        console.log(json);
         setIsLoading(false);
         dispatch(
           Action.Login(

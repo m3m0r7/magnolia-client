@@ -8,6 +8,7 @@ const env = {
 };
 
 require('./exteded/route/Middleware')(app, express, env);
-require('./exteded/route/User')(app, express, env);
-require('./exteded/route/Login')(app, express, env);
+require('./exteded/route/Api/User')(app, express, env);
+require('./exteded/route/Api/Login')(app, express, env);
+require('./exteded/route/Api/Info')(app, express, env);
 require('./exteded/route/Fallback')(app, express, env);
