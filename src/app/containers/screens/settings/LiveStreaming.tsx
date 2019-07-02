@@ -10,7 +10,11 @@ import Switch from "@material-ui/core/Switch";
 import * as React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 
+const { useState } = React;
+
 export const LiveStreaming = (props: any) => {
+  const [ wifiSetting, setWifiSetting ] = useState(false);
+  const [ retryConnectionSetting, setRetryConnectionSetting ] = useState(false);
   return (
     <>
       <List
@@ -32,8 +36,8 @@ export const LiveStreaming = (props: any) => {
           <ListItemSecondaryAction>
             <Switch
               edge="end"
-              onChange={() => {}}
-              checked={true}
+              onChange={() => setWifiSetting(!wifiSetting)}
+              checked={wifiSetting}
             />
           </ListItemSecondaryAction>
         </ListItem>
@@ -48,8 +52,8 @@ export const LiveStreaming = (props: any) => {
           <ListItemSecondaryAction>
             <Switch
               edge="end"
-              onChange={() => {}}
-              checked={true}
+              onChange={() => setRetryConnectionSetting(!retryConnectionSetting)}
+              checked={retryConnectionSetting}
             />
           </ListItemSecondaryAction>
         </ListItem>
