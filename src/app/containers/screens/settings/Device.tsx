@@ -22,7 +22,7 @@ const { useState, useEffect } = React;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100vw',
+      width: '100%',
       backgroundColor: theme.palette.background.paper,
     },
     nested: {
