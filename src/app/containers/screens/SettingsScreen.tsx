@@ -9,6 +9,8 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Icon from '@material-ui/core/Icon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Switch from '@material-ui/core/Switch';
 
 const { useState, useRef } = React;
 
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SettingsScreen = (props: any) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   function handleClick() {
     setOpen(!open);
@@ -47,7 +49,10 @@ export const SettingsScreen = (props: any) => {
           <ListItemIcon>
             <Icon>info</Icon>
           </ListItemIcon>
-          <ListItemText primary="Information" />
+          <ListItemText
+            primary="Information"
+            secondary="Show device information."
+          />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -91,6 +96,59 @@ export const SettingsScreen = (props: any) => {
 
           </List>
         </Collapse>
+        <ListItem button>
+          <ListItemIcon>
+            <Icon>help</Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="Help"
+            secondary="Show help"
+          />
+        </ListItem>
+      </List>
+      <List
+        component="nav"
+        subheader={
+          <ListSubheader component="div">
+            Live Streaming
+          </ListSubheader>
+        }
+        className={classes.root}
+      >
+        <ListItem>
+          <ListItemIcon>
+            <Icon>wifi</Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="WIFI only"
+            secondary="Live streaming connect to server Wifi only. otherwise, get static image every 30sec."
+          />
+          <ListItemSecondaryAction>
+            <Switch
+              edge="end"
+              onChange={() => true}
+              checked={true}
+              inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <Icon>refresh</Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="Retry connection"
+            secondary="The application retry connection if disconnected from server."
+          />
+          <ListItemSecondaryAction>
+            <Switch
+              edge="end"
+              onChange={() => true}
+              checked={true}
+              inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
       </List>
       <List
         component="nav"
@@ -105,7 +163,10 @@ export const SettingsScreen = (props: any) => {
           <ListItemIcon>
             <Icon>power_settings_new</Icon>
           </ListItemIcon>
-          <ListItemText primary="Sign out" />
+          <ListItemText
+            primary="Sign out"
+            secondary="Sign out from the application."
+          />
         </ListItem>
       </List>
     </>

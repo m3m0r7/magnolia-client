@@ -41,6 +41,8 @@ export const App = (props: any) => {
       style={
         {
           padding: 0,
+          height: 'calc(100vh - 56px)',
+          overflowY: 'scroll',
         }
       }
     >

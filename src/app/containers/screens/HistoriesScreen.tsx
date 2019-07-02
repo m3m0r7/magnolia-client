@@ -6,7 +6,7 @@ const { useState, useRef } = React;
 export const HistoriesScreen = (props: any) => {
   return (
     <>
-      Hello World! 4
+      <p>Sorry, This content is not available now.</p>
     </>
   );
 };
