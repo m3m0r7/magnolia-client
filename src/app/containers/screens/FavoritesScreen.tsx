@@ -70,7 +70,7 @@ export const FavoritesScreen = (props: any) => {
               >
                 <ListItemText
                   primary={date}
-                  secondary={`${items.length} photos`}
+                  secondary={`${items.length.toLocaleString()} photos`}
                 />
                 {listOpenedInfo[0] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
