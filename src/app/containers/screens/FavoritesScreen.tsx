@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export const FavoritesScreen = (props: any) => {
   const classes = useStyles();
 
-  const [ images, setImages ] = useState([]);
+  const [ images, setImages ] = useState({});
   const [ listOpenedInfo, setListOpenedInfo ] = useState([false]);
 
   useEffect(() => {
-    if (images.length > 0) {
+    if (Object.keys(images).length > 0) {
       return;
     }
     fetch('/api/v1/image')
@@ -54,31 +54,39 @@ export const FavoritesScreen = (props: any) => {
 
   return (
     <>
-      <List
-        component="div"
-        style={{paddingTop: 0}}
-        className={classes.root}
-      >
-        <ListItem
-          button
-          onClick={() => toggleOpenedInfo(0)}
-        >
-          <ListItemText
-            primary="2019/07"
-            secondary="1,234 photos"
-          />
-          {listOpenedInfo[0] ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={listOpenedInfo[0]} timeout="auto" unmountOnExit>
-          <GridList cellHeight={160} className={classes.gridList} cols={3}>
-            {images.map((image: any, key) => (
-              <GridListTile key={key} cols={1}>
-                <img src={image.src} />
-              </GridListTile>
-            ))}
-          </GridList>
-        </Collapse>
-      </List>
+      {
+        Object.keys(images).map((date) => {
+          const items: [] = images[date];
+          return (
+            <List
+              key={date}
+              component="div"
+              style={{paddingTop: 0}}
+              className={classes.root}
+            >
+              <ListItem
+                button
+                onClick={() => toggleOpenedInfo(0)}
+              >
+                <ListItemText
+                  primary={date}
+                  secondary={`${items.length} photos`}
+                />
+                {listOpenedInfo[0] ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={listOpenedInfo[0]} timeout="auto" unmountOnExit>
+                <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                  {(items.map((image: any, key) => (
+                    <GridListTile key={key} cols={1}>
+                      <img src={image.src} />
+                    </GridListTile>
+                  ))}
+                </GridList>
+              </Collapse>
+            </List>
+          );
+        })
+      }
     </>
   );
 };
