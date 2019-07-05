@@ -12,12 +12,23 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import * as Action from '../../../actions/Action';
 import * as Types from '../../../actions/Types';
+import {useCookies} from "react-cookie";
 
-const { useState } = React;
+const { useState, useEffect } = React;
 
 export const LiveStreaming = (props: any) => {
+  const [ cookies, setCookie, removeCookie ] = useCookies();
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state);
+
+  if (selector.setting.isWifiOnlyEnabled === null) {
+    selector.setting.isWifiOnlyEnabled = !!(cookies.isWifiOnlyEnabled * 1);
+  }
+
+  if (selector.setting.isRetryConnectionEnabled === null) {
+    selector.setting.isRetryConnectionEnabled = !!(cookies.isRetryConnectionEnabled * 1);
+  }
+
   return (
     <>
       <List
@@ -40,6 +51,7 @@ export const LiveStreaming = (props: any) => {
             <Switch
               edge="end"
               onChange={() => {
+                setCookie('isWifiOnlyEnabled', !selector.setting.isWifiOnlyEnabled ? 1 : 0);
                 dispatch(
                   Action.Setting(
                     selector.setting.isWifiOnlyEnabled
@@ -64,6 +76,7 @@ export const LiveStreaming = (props: any) => {
             <Switch
               edge="end"
               onChange={() => {
+                setCookie('isRetryConnectionEnabled', !selector.setting.isRetryConnectionEnabled ? 1 : 0);
                 dispatch(
                   Action.Setting(
                     selector.setting.isRetryConnectionEnabled

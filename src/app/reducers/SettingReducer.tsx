@@ -6,8 +6,8 @@ import {
 } from "../actions/Types";
 
 const initialState = {
-  isWifiOnlyEnabled: false,
-  isRetryConnectionEnabled: false,
+  isWifiOnlyEnabled: null,
+  isRetryConnectionEnabled: null,
 };
 
 export const SettingReducer = (state = initialState, action: any) => {
