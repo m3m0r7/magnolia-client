@@ -5,4 +5,4 @@ composer.lock
 yarn.lock
 public/js/*
 !public/js/.gitkeep
-users.json
+.env

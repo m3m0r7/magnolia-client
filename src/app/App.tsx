@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
 
 import { Login } from "./containers/Login";
 import { Main } from "./containers/Main";
@@ -9,7 +11,18 @@ import { Loading } from "./containers/Loading";
 import * as Action from "./actions/Action";
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "./actions/Types";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: 0,
+      height: 'calc(100vh - 56px)',
+      overflowY: 'scroll',
+    },
+  }),
+);
+
 export const App = (props: any) => {
+  const classes = useStyles();
   const context = useSelector((state: any) => state);
   const dispatch = useDispatch();
   const [ isLoading, setIsLoading ] = useState(true);
@@ -24,7 +37,6 @@ export const App = (props: any) => {
         return response.json()
       })
       .then((json) => {
-        console.log(json);
         setIsLoading(false);
         dispatch(
           Action.Login(
@@ -38,16 +50,7 @@ export const App = (props: any) => {
   });
 
   return (
-    <Container
-      maxWidth="sm"
-      style={
-        {
-          padding: 0,
-          height: 'calc(100vh - 56px)',
-          overflowY: 'scroll',
-        }
-      }
-    >
+    <Container maxWidth="sm" className={classes.root}>
       {
         isLoading && <Loading />
       }
