@@ -20,6 +20,11 @@ import { NotFound } from "./app/containers/NotFound";
 // Stores
 import configureStore, { history, store } from './app/stores/configureStore';
 
+interface Window {
+  Magnolia: any;
+}
+declare let window: Window;
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -31,30 +36,39 @@ const theme = createMuiTheme({
   },
 });
 
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <>
-          <Switch>
-            <Route
-              exact
-              path="/(histories|favorites|settings|)?"
-              render={
-                (match: any) => {
-                  return (
-                    <App
-                      match={match.match}
-                    />
-                  );
-                }
-              }
-            />
-            <Route render={() => <NotFound />} />
-          </Switch>
-        </>
-      </ConnectedRouter>
-    </Provider>
-  </ThemeProvider>,
-  document.getElementById('app')
-);
+fetch('/api/v1/info')
+  .then((response: any) => {
+    return response.json()
+  })
+  .then((response) => {
+    window.Magnolia = response;
+
+    ReactDOM.render(
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <ConnectedRouter history={history}>
+            <>
+              <Switch>
+                <Route
+                  exact
+                  path="/(histories|favorites|settings|)?"
+                  render={
+                    (match: any) => {
+                      return (
+                        <App
+                          match={match.match}
+                        />
+                      );
+                    }
+                  }
+                />
+                <Route render={() => <NotFound />} />
+              </Switch>
+            </>
+          </ConnectedRouter>
+        </Provider>
+      </ThemeProvider>,
+      document.getElementById('app')
+    );
+  });
+

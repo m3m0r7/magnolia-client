@@ -76,7 +76,7 @@ export const Login = (props: any) => {
         <DialogTitle>Error</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {errorInfo.error}
+            {(errorInfo as any).error}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

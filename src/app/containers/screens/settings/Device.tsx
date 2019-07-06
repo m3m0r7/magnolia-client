@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface ObjectAdditionalMethod {
+  values(data: any): [];
+}
+
+declare const Object: ObjectAdditionalMethod;
+
 export const Device = (props: any) => {
   const classes = useStyles();
   const [ info, setInfo ] = useState(null);

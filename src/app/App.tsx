@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface Window {
+  Magnolia: any;
+}
+declare let window: Window;
+
 export const App = (props: any) => {
   const classes = useStyles();
   const context = useSelector((state: any) => state);
@@ -31,8 +36,7 @@ export const App = (props: any) => {
     if (context.login.isLoggedIn !== null && !context.login.force) {
       return;
     }
-
-    fetch('/api/v1/user')
+    fetch(`${window.Magnolia.uri_api_path}/api/v1/user`)
       .then((response) => {
         return response.json()
       })
@@ -40,7 +44,7 @@ export const App = (props: any) => {
         setIsLoading(false);
         dispatch(
           Action.Login(
-            json.status == 400
+            !json.status || json.status == 400
               ? LOGIN_FAILED
               : LOGIN_SUCCESS,
             json

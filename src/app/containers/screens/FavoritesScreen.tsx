@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface FavoriteImage {
+  [key: string]: any;
+}
+
 export const FavoritesScreen = (props: any) => {
   const classes = useStyles();
 
@@ -56,13 +60,12 @@ export const FavoritesScreen = (props: any) => {
     <>
       {
         Object.keys(images).map((date) => {
-          const items: [] = images[date];
+          const items: [] = (images as FavoriteImage)[date];
           return (
             <List
               key={date}
               component="div"
               style={{paddingTop: 0}}
-              className={classes.root}
             >
               <ListItem
                 button
@@ -76,11 +79,13 @@ export const FavoritesScreen = (props: any) => {
               </ListItem>
               <Collapse in={listOpenedInfo[0]} timeout="auto" unmountOnExit>
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                  {(items.map((image: any, key) => (
-                    <GridListTile key={key} cols={1}>
-                      <img src={image.src} />
-                    </GridListTile>
-                  ))}
+                  {items.map((image: any, key) => {
+                    return (
+                      <GridListTile key={key} cols={1}>
+                        <img src={image.src}/>
+                      </GridListTile>
+                    )
+                  })}
                 </GridList>
               </Collapse>
             </List>
