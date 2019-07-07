@@ -8,7 +8,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
 
 // Load components
-import { history } from '../stores/configureStore';
+import { history } from '@stores/configureStore';
 
 // Load screens
 import { LiveScreen } from "./screens/LiveScreen";
@@ -17,10 +17,10 @@ import { FavoritesScreen } from "./screens/FavoritesScreen";
 import { SettingsScreen } from "./screens/SettingsScreen";
 
 // Load styles
-import '../style/components/login.scss';
-import '../style/components/input.scss';
-import '../style/components/footer.scss';
-import '../style/containers/container.scss';
+import '@style/components/login.scss';
+import '@style/components/input.scss';
+import '@style/components/footer.scss';
+import '@style/containers/container.scss';
 
 const { useState, useRef } = React;
 

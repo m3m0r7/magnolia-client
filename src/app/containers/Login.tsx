@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import * as Action from '../actions/Action';
+import * as Action from '@actions/Action';
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
-} from '../actions/Types';
+} from '@actions/Types';
 
-import '../style/components/login.scss';
-import '../style/components/input.scss';
-import '../style/containers/container.scss';
+import '@style/components/login.scss';
+import '@style/components/input.scss';
+import '@style/containers/container.scss';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";

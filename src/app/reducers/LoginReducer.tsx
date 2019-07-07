@@ -1,7 +1,7 @@
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
-} from "../actions/Types";
+} from "@actions/Types";
 
 const initialState = {
   isLoggedIn: null,

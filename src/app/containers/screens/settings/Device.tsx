@@ -41,7 +41,7 @@ export const Device = (props: any) => {
     if (info !== null) {
       return;
     }
-    fetch('/api/v1/info')
+    fetch(`${window.Magnolia}/api/v1/info`)
       .then((response: any) => {
         return response.json()
       })

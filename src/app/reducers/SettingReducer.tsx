@@ -3,7 +3,7 @@ import {
   OFF_SETTING_WIFI_ONLY,
   ON_SETTING_RETRY_CONNECTION,
   ON_SETTING_WIFI_ONLY,
-} from "../actions/Types";
+} from "@actions/Types";
 
 const initialState = {
   isWifiOnlyEnabled: null,

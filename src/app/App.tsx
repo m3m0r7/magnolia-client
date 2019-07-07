@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-
-import { Login } from "./containers/Login";
-import { Main } from "./containers/Main";
-import { Loading } from "./containers/Loading";
-import * as Action from "./actions/Action";
-import { LOGIN_FAILED, LOGIN_SUCCESS } from "./actions/Types";
+import { Login } from "@containers/Login";
+import { Main } from "@containers/Main";
+import { Loading } from "@containers/Loading";
+import * as Action from "@actions/Action";
+import { LOGIN_FAILED, LOGIN_SUCCESS } from "@actions/Types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

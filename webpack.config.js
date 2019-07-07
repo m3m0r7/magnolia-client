@@ -3,7 +3,16 @@ const path = require('path');
 module.exports = {
   entry: './src/index.tsx',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', 'scss']
+    extensions: ['.ts', '.tsx', '.js', 'scss'],
+    alias: {
+      "@app": path.resolve(__dirname, "src/app"),
+      "@containers": path.resolve(__dirname, "src/app/containers"),
+      "@reducers": path.resolve(__dirname, "src/app/reducers"),
+      "@actions": path.resolve(__dirname, "src/app/actions"),
+      "@stores": path.resolve(__dirname, "src/app/stores"),
+      "@style": path.resolve(__dirname, "src/app/style"),
+      "@util": path.resolve(__dirname, "src/app/util"),
+    }
   },
   module: {
     rules: [
