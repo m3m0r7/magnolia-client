@@ -37,10 +37,10 @@ export const App = (props: any) => {
       return;
     }
     fetch(`${window.Magnolia.uri_api_path}/api/v1/user`)
-      .then((response) => {
+      .then((response: any) => {
         return response.json()
       })
-      .then((json) => {
+      .then((json: any) => {
         setIsLoading(false);
         dispatch(
           Action.Login(

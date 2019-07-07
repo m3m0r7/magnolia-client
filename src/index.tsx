@@ -40,7 +40,7 @@ fetch('/api/v1/info')
   .then((response: any) => {
     return response.json()
   })
-  .then((response) => {
+  .then((response: any) => {
     window.Magnolia = response;
 
     ReactDOM.render(

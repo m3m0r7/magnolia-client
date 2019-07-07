@@ -36,10 +36,10 @@ export const Login = (props: any) => {
       },
       body: JSON.stringify({id, password})
     } as any)
-      .then((response) => {
+      .then((response: any) => {
         return response.json()
       })
-      .then((json) => {
+      .then((json: any) => {
         dispatch(
           Action.Login(
             json.status != 200
