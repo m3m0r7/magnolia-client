@@ -17,6 +17,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
+import * as API from '@util/API';
+
 const { useState, useEffect } = React;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,7 +43,7 @@ export const Device = (props: any) => {
     if (info !== null) {
       return;
     }
-    fetch(`${window.Magnolia}/api/v1/info`)
+    API.call(`/api/v1/info`)
       .then((response: any) => {
         return response.json()
       })

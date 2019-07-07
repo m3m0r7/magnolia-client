@@ -9,6 +9,7 @@ import { Main } from "@containers/Main";
 import { Loading } from "@containers/Loading";
 import * as Action from "@actions/Action";
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "@actions/Types";
+import * as API from "@util/API";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +36,7 @@ export const App = (props: any) => {
     if (context.login.isLoggedIn !== null && !context.login.force) {
       return;
     }
-    fetch(`${window.Magnolia.uri_api_path}/api/v1/user`)
+    API.call(`/api/v1/user`)
       .then((response: any) => {
         return response.json()
       })
@@ -43,7 +44,7 @@ export const App = (props: any) => {
         setIsLoading(false);
         dispatch(
           Action.Login(
-            !json.status || json.status == 400
+            !json.status || json.status != 200
               ? LOGIN_FAILED
               : LOGIN_SUCCESS,
             json

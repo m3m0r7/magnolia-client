@@ -16,6 +16,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
+import * as API from "@util/API";
+
 const { useState, useRef } = React;
 
 export const Login = (props: any) => {
@@ -28,14 +30,14 @@ export const Login = (props: any) => {
   const loginAction = () => {
     const id = (idRef.current as any).value;
     const password = (passwordRef.current as any).value;
-    fetch('/api/v1/login', {
-      method: 'POST',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify({id, password})
-    } as any)
+    API.call(
+      '/api/v1/login',
+      'POST',
+      {
+        id,
+        password,
+      }
+    )
       .then((response: any) => {
         return response.json()
       })

@@ -12,6 +12,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from "@material-ui/core/Collapse";
 
+import * as API from "@util/API";
+
 const { useState, useEffect } = React;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,12 +39,12 @@ export const FavoritesScreen = (props: any) => {
     if (Object.keys(images).length > 0) {
       return;
     }
-    fetch('/api/v1/image')
+    API.call('/api/v1/favorite')
       .then((response: any) => {
         return response.json()
       })
       .then((json: any) => {
-        setImages(json);
+        setImages(json.dates);
       });
   });
 

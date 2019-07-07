@@ -5,13 +5,13 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', 'scss'],
     alias: {
-      "@app": path.resolve("./src/app"),
-      "@containers": path.resolve("./src/app/containers"),
-      "@reducers": path.resolve("./src/app/reducers"),
-      "@actions": path.resolve("./src/app/actions"),
-      "@stores": path.resolve("./src/app/stores"),
-      "@style": path.resolve("./src/app/style"),
-      "@util": path.resolve("./src/app/util"),
+      "@app": path.resolve(__dirname, "src/app"),
+      "@containers": path.resolve(__dirname, "src/app/containers"),
+      "@reducers": path.resolve(__dirname, "src/app/reducers"),
+      "@actions": path.resolve(__dirname, "src/app/actions"),
+      "@stores": path.resolve(__dirname, "src/app/stores"),
+      "@style": path.resolve(__dirname, "src/app/style"),
+      "@util": path.resolve(__dirname, "src/app/util"),
     }
   },
   module: {
@@ -56,6 +56,6 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.join('public/js')
+    path: path.join(__dirname, 'public/js')
   }
 };
