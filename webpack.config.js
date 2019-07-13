@@ -12,6 +12,7 @@ module.exports = {
       "@stores": path.resolve(__dirname, "src/app/stores"),
       "@style": path.resolve(__dirname, "src/app/style"),
       "@util": path.resolve(__dirname, "src/app/util"),
+      "@envs": path.resolve(__dirname, "src/app/envs"),
     }
   },
   module: {

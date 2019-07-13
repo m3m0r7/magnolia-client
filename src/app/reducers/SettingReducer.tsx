@@ -6,7 +6,7 @@ import {
 } from "@actions/Types";
 
 const initialState = {
-  isWifiOnlyEnabled: null,
+  isEnabledLiveStreaming: null,
   isRetryConnectionEnabled: null,
 };
 
@@ -15,12 +15,12 @@ export const SettingReducer = (state = initialState, action: any) => {
     case ON_SETTING_WIFI_ONLY:
       return {
         ...state,
-        isWifiOnlyEnabled: true,
+        isEnabledLiveStreaming: true,
       };
     case OFF_SETTING_WIFI_ONLY:
       return {
         ...state,
-        isWifiOnlyEnabled: false,
+        isEnabledLiveStreaming: false,
       };
     case ON_SETTING_RETRY_CONNECTION:
       return {

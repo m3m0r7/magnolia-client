@@ -21,8 +21,8 @@ export const LiveStreaming = (props: any) => {
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state);
 
-  if (selector.setting.isWifiOnlyEnabled === null) {
-    selector.setting.isWifiOnlyEnabled = !!(cookies.isWifiOnlyEnabled * 1);
+  if (selector.setting.isEnabledLiveStreaming === null) {
+    selector.setting.isEnabledLiveStreaming = !!(cookies.isEnabledLiveStreaming * 1);
   }
 
   if (selector.setting.isRetryConnectionEnabled === null) {
@@ -44,23 +44,23 @@ export const LiveStreaming = (props: any) => {
             <Icon>wifi</Icon>
           </ListItemIcon>
           <ListItemText
-            primary="WIFI only"
-            secondary="Live streaming connect to server Wifi only. otherwise, get static image every 30sec."
+            primary="High-speed connection only"
+            secondary="Live streaming get to enable if your internet is high-speed. otherwise, get static image every 30sec."
           />
           <ListItemSecondaryAction>
             <Switch
               edge="end"
               onChange={() => {
-                setCookie('isWifiOnlyEnabled', !selector.setting.isWifiOnlyEnabled ? 1 : 0);
+                setCookie('isEnabledLiveStreaming', !selector.setting.isEnabledLiveStreaming ? 1 : 0);
                 dispatch(
                   Action.Setting(
-                    selector.setting.isWifiOnlyEnabled
+                    selector.setting.isEnabledLiveStreaming
                       ? Types.OFF_SETTING_WIFI_ONLY
                       : Types.ON_SETTING_WIFI_ONLY
                   )
                 )
               }}
-              checked={selector.setting.isWifiOnlyEnabled}
+              checked={selector.setting.isEnabledLiveStreaming}
             />
           </ListItemSecondaryAction>
         </ListItem>
