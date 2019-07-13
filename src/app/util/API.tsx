@@ -3,6 +3,9 @@ interface WindowInterface {
 }
 declare let window: WindowInterface;
 
+export const camera = () => {
+  return window.Magnolia.uri_camera_path;
+};
 
 export const call = (uri: string, method: string = "GET", body: object = {}): Promise<Response> => {
   const options: any = {
