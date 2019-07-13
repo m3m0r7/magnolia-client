@@ -9,14 +9,38 @@ import * as API from '@util/API';
 import '../../style/components/live.scss';
 import '../../style/components/card.scss';
 
-const { useState, useRef } = React;
+const { useState, useRef, useEffect } = React;
 
 export const LiveScreen = (props: any) => {
+  const ws = new WebSocket(API.camera());
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = (canvasRef.current as any).getContext('2d');
+
+    ws.addEventListener('error', (e) => {
+      console.log('An error occurred.');
+    });
+
+    ws.addEventListener('message', (e) => {
+      const image = new Image();
+      image.src = e.data;
+      ctx.drawImage(
+        image,
+        0,
+        0
+      );
+    });
+
+  });
+
   return (
     <>
       <div className="c-live-image-container">
         <div className="c-live-image">
-          <img src={API.camera()} className="c-live-image-body" />
+          <canvas ref={canvasRef} width="600" height="450">
+
+          </canvas>
         </div>
       </div>
     </>

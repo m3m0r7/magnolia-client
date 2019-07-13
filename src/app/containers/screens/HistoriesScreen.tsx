@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 
 const { useState, useRef } = React;
 
-
-
 export const HistoriesScreen = (props: any) => {
   return (
     <>

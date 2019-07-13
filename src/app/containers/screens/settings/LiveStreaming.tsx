@@ -12,7 +12,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import * as Action from '../../../actions/Action';
 import * as Types from '../../../actions/Types';
-import {useCookies} from "react-cookie";
+import { useCookies } from "react-cookie";
 
 const { useState, useEffect } = React;
 
