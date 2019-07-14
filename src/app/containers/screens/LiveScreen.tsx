@@ -19,6 +19,17 @@ interface Navigator {
 }
 declare let navigator: Navigator;
 
+const updateStaticImage = (): void => {
+  API
+    .call('/api/v1/capture')
+    .then((response: any) => {
+      return response.json()
+    })
+    .then((json: any) => {
+      console.log(json);
+    });
+};
+
 export const LiveScreen = (props: any) => {
   const [ cookies, setCookie, removeCookie ] = useCookies();
   const canvasRef = useRef(null);
@@ -37,14 +48,17 @@ export const LiveScreen = (props: any) => {
     const ctx = (canvasRef.current as any).getContext('2d');
 
     // High-speed internet
-    if (navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE) {
+    if (
+      !selector.setting.isEnabledLiveStreaming ||
+      navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
+    ) {
       const ws = new WebSocket(API.camera());
+      const retryingConnection = (e: any) => {
 
-      ws.addEventListener('error', (e) => {
-        console.log('An error occurred.');
+      };
 
-        // TODO: connect retrying.
-      });
+      ws.addEventListener('close', retryingConnection);
+      ws.addEventListener('error', retryingConnection);
 
       ws.addEventListener('message', (e) => {
         const image = new Image();
@@ -55,12 +69,18 @@ export const LiveScreen = (props: any) => {
           0
         );
       });
-      return;
+
+      return () => {
+        ws.close();
+      };
     }
 
     // Slow internet (for cellular)
+    const getImage = setTimeout(() => {}, 0);
 
+    return () => {
 
+    };
   });
 
   return (
