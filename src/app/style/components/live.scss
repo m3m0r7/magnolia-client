@@ -37,3 +37,12 @@
     width: 100%;
   }
 }
+
+.c-live-image-canvas-body {
+  overflow: hidden;
+  &.blur {
+    canvas {
+      filter: blur(0.5rem);
+    }
+  }
+}

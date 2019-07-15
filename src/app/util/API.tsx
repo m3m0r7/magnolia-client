@@ -11,10 +11,10 @@ export const call = (uri: string, method: string = "GET", body: object = {}): Pr
   const options: any = {
     mode: 'cors',
     credentials: 'include',
+    cache: 'no-cache',
   };
   if (method === 'POST') {
     options.method = method;
-    options.cache = 'no-cache';
     options.headers = {
       'Content-Type': 'application/json; charset=utf-8',
     };

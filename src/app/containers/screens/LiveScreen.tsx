@@ -30,13 +30,13 @@ enum renderingTypeEnum {
 export const LiveScreen = (props: any) => {
   const [ cookies, setCookie, removeCookie ] = useCookies();
   const canvasRef = useRef(null);
-  const imageRef = useRef(null);
 
   const [ renderingType, setRenderingType ] = useState(renderingTypeEnum.STATIC);
   const [ updatedAt, setUpdatedAt ] = useState('...');
   const [ remainingValue, setRemainingValue ] = useState(0);
   const [ nextUpdate, setNextUpdate ] = useState(0);
   const [ updateInterval, setUpdateInterval ] = useState(0);
+  const [ isReconnecting, setIsReconnecting ] = useState(false);
 
   const selector = useSelector((state: any) => state);
 
@@ -50,12 +50,12 @@ export const LiveScreen = (props: any) => {
 
   useEffect(
     () => {
+      const ctx = (canvasRef.current as any).getContext('2d');
       // High-speed internet
       // if (
       //   !selector.setting.isEnabledLiveStreaming ||
       //   navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
       // ) {
-      //   const ctx = (canvasRef.current as any).getContext('2d');
       //   setRenderingType(renderingTypeEnum.LIVE);
       //   const ws = new WebSocket(API.camera());
       //   const retryingConnection = (e: any) => {
@@ -68,12 +68,14 @@ export const LiveScreen = (props: any) => {
       //   ws.addEventListener('message', (e) => {
       //     const image = new Image();
       //     image.src = e.data;
-      //     ctx.drawImage(
-      //       image,
-      //       0,
-      //       0
-      //     );
-      //   });
+      //     image.onload = () => {
+      //       ctx.drawImage(
+      //         image,
+      //         0,
+      //         0
+      //       );
+      //     });
+      //    }
       //
       //   return () => {
       //     ws.close();
@@ -81,7 +83,6 @@ export const LiveScreen = (props: any) => {
       // }
 
       // Slow internet (for cellular)
-
 
       setRenderingType(renderingTypeEnum.STATIC);
       const remainingTimer = setInterval(
@@ -96,7 +97,6 @@ export const LiveScreen = (props: any) => {
         1000
       );
       let timeId: number | Timeout | undefined = undefined;
-
       const updateStaticImage = (): void => {
         API
           .call('/api/v1/capture')
@@ -104,15 +104,36 @@ export const LiveScreen = (props: any) => {
             return response.json()
           })
           .then((json: any) => {
+            setIsReconnecting(false);
+
             setUpdateInterval(json.update_interval);
             let remainingTimes = json.next_update - moment().unix();
             if (remainingTimes < 0) {
               remainingTimes = 0;
             }
 
+            const image = new Image();
+            image.src = json.image;
+            image.onload = () => {
+              ctx.drawImage(
+                image,
+                0,
+                0,
+              );
+            };
+
+            if (true || json.next_update === nextUpdate) {
+              // In this statement, Camera server has been dead.
+              setIsReconnecting(true);
+
+              // wait 5 sec
+              setTimeout(() => updateStaticImage(), 5000);
+              return;
+            }
+
             setRemainingValue(100 - ((remainingTimes / json.update_interval) *  100));
             setNextUpdate(json.next_update);
-            (imageRef.current as any).src = json.image;
+
             setUpdatedAt(
               moment(json.updated_at * 1000).format('YYYY/MM/DD HH:mm:ss (ddd)')
             );
@@ -132,6 +153,7 @@ export const LiveScreen = (props: any) => {
         if (timeId !== undefined) {
           clearTimeout(timeId as number);
         }
+        clearInterval(remainingTimer);
       };
     },
     []
@@ -141,19 +163,15 @@ export const LiveScreen = (props: any) => {
     <>
       <div className="c-live-image-container">
         <div className="c-live-image">
-          {
-            renderingType == renderingTypeEnum.LIVE &&
-              <>
-                <canvas ref={canvasRef} width="600" height="450" />
-              </>
-          }
+          <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
+            <canvas ref={canvasRef} width="600" height="450" />
+          </div>
+          <div className="c-live-control-container">
+            {isReconnecting ? 'Reconnecting...' : updatedAt}
+          </div>
           {
             renderingType == renderingTypeEnum.STATIC &&
               <>
-                <img ref={imageRef} width="600" height="450" alt="" />
-                <div className="c-live-control-container">
-                  {updatedAt}
-                </div>
                 <LinearProgress
                   className="c-live-remaining-bar"
                   variant="determinate"
