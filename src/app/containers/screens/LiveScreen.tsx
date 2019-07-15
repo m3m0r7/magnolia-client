@@ -14,6 +14,7 @@ import '@style/components/live.scss';
 import '@style/components/card.scss';
 import { useCookies } from "react-cookie";
 import Timeout = NodeJS.Timeout;
+import {Icon} from "@material-ui/core";
 
 const { useState, useRef, useEffect } = React;
 
@@ -184,7 +185,7 @@ export const LiveScreen = (props: any) => {
               const reconnectingTimer = setTimeout(() => {
                 clearTimeout(reconnectingTimer);
                 updateStaticImage()
-              }, 5000);
+              }, 10000);
               return;
             }
 
@@ -225,8 +226,13 @@ export const LiveScreen = (props: any) => {
           <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
             <canvas ref={canvasRef} width="600" height="450" />
           </div>
-          <div className="c-live-control-container">
+          <div className="c-live-header-container">
             {isReconnecting ? 'Reconnecting...' : updatedAt}
+          </div>
+          <div className="c-live-footer-container">
+            <div className="c-live-container-body">
+              <div><Icon>favorite</Icon></div>
+            </div>
           </div>
           {
             renderingType == renderingTypeEnum.STATIC &&
