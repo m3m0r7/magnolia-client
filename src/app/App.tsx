@@ -10,6 +10,8 @@ import { Loading } from "@containers/Loading";
 import * as Action from "@actions/Action";
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "@actions/Types";
 import * as API from "@util/API";
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +38,7 @@ export const App = (props: any) => {
     () => {
       API.call(`/api/v1/user`)
         .then((response: any) => {
+          console.log(response);
           return response.json()
         })
         .then((json: any) => {
@@ -48,6 +51,9 @@ export const App = (props: any) => {
               json
             )
           );
+        }).catch((response: any) => {
+          setIsLoading(false);
+          dispatch(Action.Login(LOGIN_FAILED));
         });
     },
     []

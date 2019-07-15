@@ -56,6 +56,11 @@ export const Login = (props: any) => {
         if (json.status != 200) {
           setErrorInfo(json);
         }
+      })
+      .catch((error: any) => {
+        setErrorInfo({
+          error: "Login server has gone away :("
+        });
       });
     return false;
   };
