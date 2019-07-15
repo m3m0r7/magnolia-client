@@ -38,7 +38,6 @@ export const App = (props: any) => {
     () => {
       API.call(`/api/v1/user`)
         .then((response: any) => {
-          console.log(response);
           return response.json()
         })
         .then((json: any) => {

@@ -50,6 +50,33 @@ export const LiveScreen = (props: any) => {
 
   useEffect(
     () => {
+      if (renderingType !== renderingTypeEnum.LIVE) {
+        return;
+      }
+      const update = () => {
+        setUpdatedAt(
+          moment(moment().unix() * 1000)
+            .format('YYYY/MM/DD HH:mm:ss (ddd)')
+        );
+      };
+
+      const timerId = setInterval(() => update(), 1000);
+      update();
+
+      return () => {
+        clearInterval(timerId);
+      };
+    },
+    [
+      renderingType
+    ]
+  );
+
+  useEffect(
+    () => {
+      if (renderingType !== renderingTypeEnum.STATIC) {
+        return;
+      }
       const remainingTimer = setInterval(
         () => {
           let remainingTimes = nextUpdate - moment().unix();
@@ -70,39 +97,52 @@ export const LiveScreen = (props: any) => {
     ]
   );
 
+  const connectWebSocketServer = (ctx: any) => {
+    setIsReconnecting(false);
+    let ws = new WebSocket(API.camera());
+    const retryingConnection = (e: any) => {
+      setIsReconnecting(true);
+
+      // reconnecting
+      setTimeout(
+        () => {
+          connectWebSocketServer(ctx);
+        },
+        5000
+      );
+    };
+
+    ws.addEventListener('close', retryingConnection);
+    ws.addEventListener('error', retryingConnection);
+
+    ws.addEventListener('message', (e) => {
+      const image = new Image();
+      image.src = e.data;
+      image.onload = () => {
+        ctx.drawImage(
+          image,
+          0,
+          0
+        );
+      }
+    });
+
+    return () => {
+      ws.close();
+    };
+  };
+
   useEffect(
     () => {
       const ctx = (canvasRef.current as any).getContext('2d');
       // High-speed internet
-      // if (
-      //   !selector.setting.isEnabledLiveStreaming ||
-      //   navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
-      // ) {
-      //   setRenderingType(renderingTypeEnum.LIVE);
-      //   const ws = new WebSocket(API.camera());
-      //   const retryingConnection = (e: any) => {
-      //
-      //   };
-      //
-      //   ws.addEventListener('close', retryingConnection);
-      //   ws.addEventListener('error', retryingConnection);
-      //
-      //   ws.addEventListener('message', (e) => {
-      //     const image = new Image();
-      //     image.src = e.data;
-      //     image.onload = () => {
-      //       ctx.drawImage(
-      //         image,
-      //         0,
-      //         0
-      //       );
-      //     });
-      //    }
-      //
-      //   return () => {
-      //     ws.close();
-      //   };
-      // }
+      if (
+        !selector.setting.isEnabledLiveStreaming ||
+        navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
+      ) {
+        setRenderingType(renderingTypeEnum.LIVE);
+        return connectWebSocketServer(ctx);
+      }
 
       // Slow internet (for cellular)
 
@@ -150,7 +190,8 @@ export const LiveScreen = (props: any) => {
             );
             setNextUpdate(json.next_update);
             setUpdatedAt(
-              moment(json.updated_at * 1000).format('YYYY/MM/DD HH:mm:ss (ddd)')
+              moment(json.updated_at * 1000)
+                .format('YYYY/MM/DD HH:mm:ss (ddd)')
             );
 
             timeId = setTimeout(
