@@ -32,26 +32,26 @@ export const App = (props: any) => {
   const dispatch = useDispatch();
   const [ isLoading, setIsLoading ] = useState(true);
 
-  useEffect(() => {
-    if (context.login.isLoggedIn !== null && !context.login.force) {
-      return;
-    }
-    API.call(`/api/v1/user`)
-      .then((response: any) => {
-        return response.json()
-      })
-      .then((json: any) => {
-        setIsLoading(false);
-        dispatch(
-          Action.Login(
-            !json.status || json.status != 200
-              ? LOGIN_FAILED
-              : LOGIN_SUCCESS,
-            json
-          )
-        );
-      });
-  });
+  useEffect(
+    () => {
+      API.call(`/api/v1/user`)
+        .then((response: any) => {
+          return response.json()
+        })
+        .then((json: any) => {
+          setIsLoading(false);
+          dispatch(
+            Action.Login(
+              !json.status || json.status != 200
+                ? LOGIN_FAILED
+                : LOGIN_SUCCESS,
+              json
+            )
+          );
+        });
+    },
+    []
+  );
 
   return (
     <Container maxWidth="sm" className={classes.root}>
@@ -59,15 +59,16 @@ export const App = (props: any) => {
         isLoading && <Loading />
       }
       {
-        !isLoading && (context.login.isLoggedIn
-          ? <Main match={props.match} />
-          : <>
-              <div className="wallpaper"></div>
-              <div className="wallpaper-mask"></div>
-              <div className="front">
-                <Login match={props.match} />
-              </div>
-            </>
+        !isLoading && (
+          context.login.isLoggedIn
+            ? <Main match={props.match} />
+            : <>
+                <div className="wallpaper"></div>
+                <div className="wallpaper-mask"></div>
+                <div className="front">
+                  <Login match={props.match} />
+                </div>
+              </>
           )
       }
     </Container>
