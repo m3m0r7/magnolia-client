@@ -98,7 +98,6 @@ export const LiveScreen = (props: any) => {
   );
 
   const connectWebSocketServer = (ctx: any) => {
-    setIsReconnecting(false);
     let ws = new WebSocket(API.camera());
     const retryingConnection = (e: any) => {
       setIsReconnecting(true);
@@ -112,8 +111,12 @@ export const LiveScreen = (props: any) => {
       );
     };
 
+    ws.addEventListener('open', () => {
+      // if connect to server successfully, the reconnecting status get to disable.
+      setIsReconnecting(false);
+    });
     ws.addEventListener('close', retryingConnection);
-    ws.addEventListener('error', retryingConnection);
+    // ws.addEventListener('error', retryingConnection);
 
     ws.addEventListener('message', (e) => {
       const image = new Image();
