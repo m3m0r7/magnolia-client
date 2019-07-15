@@ -50,6 +50,28 @@ export const LiveScreen = (props: any) => {
 
   useEffect(
     () => {
+      const remainingTimer = setInterval(
+        () => {
+          let remainingTimes = nextUpdate - moment().unix();
+          if (remainingTimes < 0) {
+            remainingTimes = 0;
+          }
+          setRemainingValue(100 - ((remainingTimes / updateInterval) * 100));
+        },
+        500
+      );
+      return () => {
+        clearInterval(remainingTimer);
+      }
+    },
+    [
+      updateInterval,
+      nextUpdate,
+    ]
+  );
+
+  useEffect(
+    () => {
       const ctx = (canvasRef.current as any).getContext('2d');
       // High-speed internet
       // if (
@@ -85,17 +107,7 @@ export const LiveScreen = (props: any) => {
       // Slow internet (for cellular)
 
       setRenderingType(renderingTypeEnum.STATIC);
-      const remainingTimer = setInterval(
-        () => {
-          let remainingTimes = nextUpdate - moment().unix();
-          if (remainingTimes < 0) {
-            remainingTimes = 0;
-          }
 
-          setRemainingValue(100 - ((remainingTimes / updateInterval) *  100));
-        },
-        1000
-      );
       let timeId: number | Timeout | undefined = undefined;
       const updateStaticImage = (): void => {
         API
@@ -105,7 +117,6 @@ export const LiveScreen = (props: any) => {
           })
           .then((json: any) => {
             setIsReconnecting(false);
-
             setUpdateInterval(json.update_interval);
             let remainingTimes = json.next_update - moment().unix();
             if (remainingTimes < 0) {
@@ -122,28 +133,33 @@ export const LiveScreen = (props: any) => {
               );
             };
 
-            if (true || json.next_update === nextUpdate) {
+            if (remainingTimes <= 0 || json.next_update < moment().unix()) {
               // In this statement, Camera server has been dead.
               setIsReconnecting(true);
 
               // wait 5 sec
-              setTimeout(() => updateStaticImage(), 5000);
+              const reconnectingTimer = setTimeout(() => {
+                clearTimeout(reconnectingTimer);
+                updateStaticImage()
+              }, 5000);
               return;
             }
 
-            setRemainingValue(100 - ((remainingTimes / json.update_interval) *  100));
+            setRemainingValue(
+              100 - ((remainingTimes / json.update_interval) * 100)
+            );
             setNextUpdate(json.next_update);
-
             setUpdatedAt(
               moment(json.updated_at * 1000).format('YYYY/MM/DD HH:mm:ss (ddd)')
             );
-            //
-            // timeId = setTimeout(
-            // () => {
-            //     updateStaticImage();
-            //   },
-            //   remainingTimes
-            // );
+
+            timeId = setTimeout(
+            () => {
+                clearTimeout(timeId as number);
+                updateStaticImage();
+              },
+              remainingTimes * 1000
+            );
         });
       };
 
@@ -153,7 +169,6 @@ export const LiveScreen = (props: any) => {
         if (timeId !== undefined) {
           clearTimeout(timeId as number);
         }
-        clearInterval(remainingTimer);
       };
     },
     []
