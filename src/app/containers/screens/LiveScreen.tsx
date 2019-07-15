@@ -93,15 +93,15 @@ export const LiveScreen = (props: any) => {
             remainingTimes = 0;
           }
 
-            (imageRef.current as any).src = json.image;
+          (imageRef.current as any).src = json.image;
 
-            timeId = setTimeout(
-            () => {
-              updateStaticImage();
-            },
-            remainingTimes
-          );
-        });
+          timeId = setTimeout(
+          () => {
+            updateStaticImage();
+          },
+          remainingTimes
+        );
+      });
     };
 
     updateStaticImage();
