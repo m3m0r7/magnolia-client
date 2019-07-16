@@ -49,6 +49,16 @@ export const LiveScreen = (props: any) => {
     selector.setting.isRetryConnectionEnabled = !!(cookies.isRetryConnectionEnabled * 1);
   }
 
+  const favoriteScreen = (): void => {
+    API.call('/api/v1/favorite', 'POST')
+      .then((response: any) => {
+        return response.json()
+      })
+      .then((json: any) => {
+        console.log(json);
+      });
+  };
+
   useEffect(
     () => {
       if (renderingType !== renderingTypeEnum.LIVE) {
@@ -231,7 +241,7 @@ export const LiveScreen = (props: any) => {
           </div>
           <div className="c-live-footer-container">
             <div className="c-live-container-body">
-              <div><Icon>favorite</Icon></div>
+              <div className="c-live-container-body__icon c-live-container__icon--favorite" onClick={() => favoriteScreen()}><Icon>favorite</Icon></div>
             </div>
           </div>
           {
