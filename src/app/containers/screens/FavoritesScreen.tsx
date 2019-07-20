@@ -84,7 +84,7 @@ export const FavoritesScreen = (props: any) => {
                   {items.map((image: any, key) => {
                     return (
                       <GridListTile key={key} cols={1}>
-                        <img src={image.src}/>
+                        <img src={`${API.path()}${image.src}`}/>
                       </GridListTile>
                     )
                   })}
