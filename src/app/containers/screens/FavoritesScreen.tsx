@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import ImageZoom from 'react-medium-image-zoom';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
@@ -13,6 +14,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from "@material-ui/core/Collapse";
 
 import * as API from "@util/API";
+
+import "@style/components/favorite.scss";
 
 const { useState, useEffect } = React;
 
@@ -84,7 +87,15 @@ export const FavoritesScreen = (props: any) => {
                   {items.map((image: any, key) => {
                     return (
                       <GridListTile key={key} cols={1}>
-                        <img src={`${API.path()}${image.src}`}/>
+                        <ImageZoom
+                          image={{
+                            src: API.path() + image.src,
+                            className: 'c-favorite-image-thumbnail',
+                          }}
+                          zoomImage={{
+                            src: API.path() + image.src,
+                          }}
+                        />
                       </GridListTile>
                     )
                   })}
