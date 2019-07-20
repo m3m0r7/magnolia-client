@@ -43,9 +43,9 @@
   },
   "scripts": {
     "build:dev": "webpack --mode development --watch",
-    "build:prd": "webpack --mode production",
+    "build": "webpack --mode production",
     "start:dev": "nodemon ./server.js 80",
-    "start:prd": "node ./server.js 80",
+    "start": "node ./server.js",
     "dev": "npm-run-all -p start:dev build:dev",
     "prd": "npm-run-all -p start:prd build:prd"
   }
