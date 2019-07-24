@@ -154,13 +154,13 @@ export const LiveScreen = (props: any) => {
     () => {
       const ctx = (canvasRef.current as any).getContext('2d');
       // High-speed internet
-      // if (
-      //   !selector.setting.isEnabledLiveStreaming ||
-      //   navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
-      // ) {
-      //   setRenderingType(renderingTypeEnum.LIVE);
-      //   return connectWebSocketServer(ctx);
-      // }
+      if (
+        !selector.setting.isEnabledLiveStreaming ||
+        navigator.connection.downlink > LiveStreamingEnv.HIGH_SPEED_INTERNET_BOUNDARY_VALUE
+      ) {
+        setRenderingType(renderingTypeEnum.LIVE);
+        return connectWebSocketServer(ctx);
+      }
 
       // Slow internet (for cellular)
 
