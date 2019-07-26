@@ -6,6 +6,7 @@ const dotenv = require('dotenv').config({
 module.exports = (app, express, env) => {
   app.get('/api/v1/info', (req, res) => {
     res.json({
+      cookie_domain: process.env.COOKIE_DOMAIN,
       uri_camera_path: process.env.URI_CAMERA_PREFIX + '?auth_key=' + process.env.AUTH_KEY,
       uri_api_path: process.env.URI_API_PREFIX,
       auth_key: process.env.AUTH_KEY,

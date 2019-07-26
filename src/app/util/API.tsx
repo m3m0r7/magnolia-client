@@ -11,6 +11,10 @@ export const camera = () => {
   return window.Magnolia.uri_camera_path;
 };
 
+export const cookieDomain = () => {
+  return window.Magnolia.cookie_domain;
+};
+
 export const call = (uri: string, method: string = "GET", body: object = {}): Promise<Response> => {
   const options: any = {
     mode: 'cors',

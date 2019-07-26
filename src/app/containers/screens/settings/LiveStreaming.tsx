@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Action from '../../../actions/Action';
 import * as Types from '../../../actions/Types';
 import { useCookies } from "react-cookie";
+import * as API from '@util/API';
 
 const { useState, useEffect } = React;
 
@@ -29,6 +30,16 @@ export const LiveStreaming = (props: any) => {
     selector.setting.isRetryConnectionEnabled = !!(cookies.isRetryConnectionEnabled * 1);
   }
 
+  const enableSetting = (name: string, isEnable: boolean) => {
+    setCookie(
+      name,
+      isEnable ? 1 : 0,
+      {
+        domain: API.cookieDomain(),
+      }
+    );
+  };
+
   return (
     <>
       <List
@@ -44,14 +55,17 @@ export const LiveStreaming = (props: any) => {
             <Icon>wifi</Icon>
           </ListItemIcon>
           <ListItemText
-            primary="High-speed connection only"
+            primary="Enable LiveStreaming"
             secondary="Live streaming get to enable if your internet is high-speed. otherwise, get static image every 30sec."
           />
           <ListItemSecondaryAction>
             <Switch
               edge="end"
               onChange={() => {
-                setCookie('isEnabledLiveStreaming', !selector.setting.isEnabledLiveStreaming ? 1 : 0);
+                enableSetting(
+                  'isEnabledLiveStreaming',
+                  !selector.setting.isEnabledLiveStreaming
+                );
                 dispatch(
                   Action.Setting(
                     selector.setting.isEnabledLiveStreaming
@@ -76,7 +90,10 @@ export const LiveStreaming = (props: any) => {
             <Switch
               edge="end"
               onChange={() => {
-                setCookie('isRetryConnectionEnabled', !selector.setting.isRetryConnectionEnabled ? 1 : 0);
+                enableSetting(
+                  'isRetryConnectionEnabled',
+                  !selector.setting.isRetryConnectionEnabled
+                );
                 dispatch(
                   Action.Setting(
                     selector.setting.isRetryConnectionEnabled
