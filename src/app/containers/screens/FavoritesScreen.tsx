@@ -38,18 +38,18 @@ export const FavoritesScreen = (props: any) => {
   const [ images, setImages ] = useState({});
   const [ listOpenedInfo, setListOpenedInfo ] = useState([false]);
 
-  useEffect(() => {
-    if (Object.keys(images).length > 0) {
-      return;
-    }
-    API.call('/api/v1/favorite')
-      .then((response: any) => {
-        return response.json()
-      })
-      .then((json: any) => {
-        setImages(json.dates);
-      });
-  });
+  useEffect(
+    () => {
+      API.call('/api/v1/favorite')
+        .then((response: any) => {
+          return response.json()
+        })
+        .then((json: any) => {
+          setImages(json.dates);
+        });
+    },
+    []
+  );
 
   function toggleOpenedInfo(index: number) {
     setListOpenedInfo(

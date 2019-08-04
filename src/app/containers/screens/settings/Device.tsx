@@ -39,18 +39,18 @@ export const Device = (props: any) => {
   const [ openInfo, setOpenInfo ] = React.useState(false);
   const [ openVersion, setOpenVersion ] = React.useState(false);
 
-  useEffect(() => {
-    if (info !== null) {
-      return;
-    }
-    API.call(`/api/v1/info`)
-      .then((response: any) => {
-        return response.json()
-      })
-      .then((json: any) => {
-        setInfo(json);
-      });
-  });
+  useEffect(
+    () => {
+      API.call(`/api/v1/info`)
+        .then((response: any) => {
+          return response.json()
+        })
+        .then((json: any) => {
+          setInfo(json);
+        });
+    },
+    []
+  );
 
   return (
     <>
