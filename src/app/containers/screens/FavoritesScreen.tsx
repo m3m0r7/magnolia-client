@@ -16,6 +16,7 @@ import Collapse from "@material-ui/core/Collapse";
 import * as API from "@util/API";
 
 import "@style/components/favorite.scss";
+import moment from "moment";
 
 const { useState, useEffect } = React;
 
@@ -62,10 +63,17 @@ export const FavoritesScreen = (props: any) => {
     );
   }
 
+  // sort items
+  const dates = Object.keys(images).sort((a, b) => {
+    a = a.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3 00:00:00');
+    b = b.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3 00:00:00');
+    return moment(b).unix() - moment(a).unix();
+  });
+
   return (
     <>
       {
-        Object.keys(images).map((date, toggleIndex) => {
+        dates.map((date, toggleIndex) => {
           const items: [] = (images as FavoriteImage)[date];
           return (
             <List

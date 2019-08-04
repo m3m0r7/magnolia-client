@@ -118,7 +118,7 @@ export const LiveScreen = (props: any) => {
       setIsReconnecting(true);
 
       // reconnecting
-      setTimeout(
+      const reconnectingTimer = setTimeout(
         () => {
           connectWebSocketServer(ctx);
         },
@@ -146,6 +146,10 @@ export const LiveScreen = (props: any) => {
     });
 
     return () => {
+      // Remove event listener for stopping to retry connection.
+      ws.removeEventListener('close', retryingConnection);
+
+      // close WebSocketConnection.
       ws.close();
     };
   };
