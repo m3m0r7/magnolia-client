@@ -36,7 +36,7 @@ export const FavoritesScreen = (props: any) => {
   const classes = useStyles();
 
   const [ images, setImages ] = useState({});
-  const [ listOpenedInfo, setListOpenedInfo ] = useState([false]);
+  const [ listOpenedInfo, setListOpenedInfo ] = useState([]);
 
   useEffect(
     () => {
@@ -46,6 +46,7 @@ export const FavoritesScreen = (props: any) => {
         })
         .then((json: any) => {
           setImages(json.dates);
+          setListOpenedInfo((new Array(Object.keys(json.dates).length)).fill(false) as any)
         });
     },
     []
@@ -64,7 +65,7 @@ export const FavoritesScreen = (props: any) => {
   return (
     <>
       {
-        Object.keys(images).map((date) => {
+        Object.keys(images).map((date, toggleIndex) => {
           const items: [] = (images as FavoriteImage)[date];
           return (
             <List
@@ -74,13 +75,13 @@ export const FavoritesScreen = (props: any) => {
             >
               <ListItem
                 button
-                onClick={() => toggleOpenedInfo(0)}
+                onClick={() => toggleOpenedInfo(toggleIndex)}
               >
                 <ListItemText
                   primary={date}
                   secondary={`${items.length.toLocaleString()} photos`}
                 />
-                {listOpenedInfo[0] ? <ExpandLess /> : <ExpandMore />}
+                {listOpenedInfo[toggleIndex] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               <Collapse in={listOpenedInfo[0]} timeout="auto" unmountOnExit>
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
