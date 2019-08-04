@@ -83,7 +83,7 @@ export const FavoritesScreen = (props: any) => {
                 />
                 {listOpenedInfo[toggleIndex] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              <Collapse in={listOpenedInfo[0]} timeout="auto" unmountOnExit>
+              <Collapse in={listOpenedInfo[toggleIndex]} timeout="auto" unmountOnExit>
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
                   {items.map((image: any, key) => {
                     return (
