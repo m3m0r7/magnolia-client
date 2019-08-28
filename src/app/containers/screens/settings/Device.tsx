@@ -100,7 +100,7 @@ export const Device = (props: any) => {
               </ListItemIcon>
               <ListItemText
                 primary="Pressure"
-                secondary={`${info ? (info as any).info.pressure : '-'} Pa`}
+                secondary={`${info ? (info as any).info.pressure : '-'} hPa`}
               />
             </ListItem>
             <ListItem className={classes.nested}>
