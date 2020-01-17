@@ -12,9 +12,23 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import * as API from "@util/API";
 
 export const Account = (props: any) => {
   const [open, setOpen] = React.useState(false);
+
+  const logoutAction = () => {
+      API.call(
+          '/api/v1/signout',
+          'POST'
+      )
+        .then((response: any) => {
+          return response.json()
+        })
+        .then((json: any) => {
+          console.log(json);
+        });
+  };
 
   return (
     <>
@@ -48,7 +62,7 @@ export const Account = (props: any) => {
           <Button onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={() => setOpen(false)} color="primary" autoFocus>
+          <Button onClick={() => {setOpen(false); logoutAction()}} color="primary" autoFocus>
             OK
           </Button>
         </DialogActions>
