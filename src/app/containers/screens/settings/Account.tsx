@@ -13,8 +13,15 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as API from "@util/API";
+import * as Action from "@actions/Action";
+import {useDispatch} from "react-redux";
+import {LOGOUT} from "@actions/Types";
+
+// Load components
+import { history } from '@stores/configureStore';
 
 export const Account = (props: any) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
   const logoutAction = () => {
@@ -26,7 +33,14 @@ export const Account = (props: any) => {
           return response.json()
         })
         .then((json: any) => {
-          console.log(json);
+          dispatch(
+            Action.Login(
+              LOGOUT
+            )
+          )
+          history.push(
+            "/"
+          )
         });
   };
 
