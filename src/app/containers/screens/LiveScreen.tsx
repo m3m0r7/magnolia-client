@@ -32,8 +32,8 @@ enum renderingTypeEnum {
 
 export const LiveScreen = (props: any) => {
   const dispatch = useDispatch();
-  const defaultWidth = 600;
-  const defaultHeight = 450;
+  const defaultWidth = 600 * 1.5;
+  const defaultHeight = 450 * 1.5;
 
   const [ cookies, setCookie, removeCookie ] = useCookies();
   const canvasRef = useRef(null);
@@ -270,7 +270,7 @@ export const LiveScreen = (props: any) => {
               <div className="c-expanded-container__inner">
                 <div className="c-live-image">
                   <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
-                    <canvas ref={canvasRef} width={defaultWidth * 1.5} height={defaultHeight * 1.5} />
+                    <canvas ref={canvasRef} width={defaultWidth} height={defaultHeight} />
                   </div>
                   <div className="c-live-header-container">
                     {isReconnecting ? 'Reconnecting...' : updatedAt}
@@ -297,7 +297,7 @@ export const LiveScreen = (props: any) => {
           : <div className="c-live-image-container">
             <div className="c-live-image">
               <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
-                <canvas ref={canvasRef} width={defaultWidth} height={defaultHeight} />
+                <canvas ref={canvasRef} width={defaultWidth / 1.5} height={defaultHeight / 1.5} />
               </div>
               <div className="c-live-header-container">
                 {isReconnecting ? 'Reconnecting...' : updatedAt}
