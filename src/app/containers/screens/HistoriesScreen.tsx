@@ -1,9 +1,25 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
+import {connect, useDispatch} from 'react-redux'
+import * as Action from "@actions/Action";
+import {UPDATE_PAGE_TITLE} from "@actions/Types";
 
-const { useState, useRef } = React;
+const { useState, useRef, useEffect } = React;
 
 export const HistoriesScreen = (props: any) => {
+  const dispatch = useDispatch();
+  useEffect(
+    () => {
+      dispatch(
+        Action.Page(
+          UPDATE_PAGE_TITLE,
+          {
+            title: "Histories",
+          }
+        )
+      );
+    },
+    []
+  );
   return (
     <>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>

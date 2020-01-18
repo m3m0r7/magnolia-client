@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import ImageZoom from 'react-medium-image-zoom';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -17,6 +17,8 @@ import * as API from "@util/API";
 
 import "@style/components/favorite.scss";
 import moment from "moment";
+import * as Action from "@actions/Action";
+import {UPDATE_PAGE_TITLE} from "@actions/Types";
 
 const { useState, useEffect } = React;
 
@@ -34,6 +36,7 @@ interface FavoriteImage {
 }
 
 export const FavoritesScreen = (props: any) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const [ images, setImages ] = useState({});
@@ -41,6 +44,15 @@ export const FavoritesScreen = (props: any) => {
 
   useEffect(
     () => {
+      dispatch(
+        Action.Page(
+          UPDATE_PAGE_TITLE,
+          {
+            title: "Favorites",
+          }
+        )
+      );
+
       API.call('/api/v1/favorite')
         .then((response: any) => {
           return response.json()

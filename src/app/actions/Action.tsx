@@ -10,3 +10,10 @@ export const Setting = (type: string) => {
     type,
   };
 }
+
+export const Page = (type: string, options: any = {}) => {
+  return {
+    type,
+    ...options,
+  }
+};

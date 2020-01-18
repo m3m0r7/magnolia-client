@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {connect, useSelector} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +15,8 @@ import '@style/components/card.scss';
 import { useCookies } from "react-cookie";
 import Timeout = NodeJS.Timeout;
 import {Icon} from "@material-ui/core";
+import * as Action from "@actions/Action";
+import {UPDATE_PAGE_TITLE} from "@actions/Types";
 
 const { useState, useRef, useEffect } = React;
 
@@ -29,6 +31,8 @@ enum renderingTypeEnum {
 }
 
 export const LiveScreen = (props: any) => {
+  const dispatch = useDispatch();
+
   const [ cookies, setCookie, removeCookie ] = useCookies();
   const canvasRef = useRef(null);
 
@@ -156,6 +160,15 @@ export const LiveScreen = (props: any) => {
 
   useEffect(
     () => {
+      dispatch(
+        Action.Page(
+          UPDATE_PAGE_TITLE,
+          {
+            title: "Live Streaming",
+          }
+        )
+      );
+
       const ctx = (canvasRef.current as any).getContext('2d');
       // High-speed internet
       if (selector.setting.isEnabledLiveStreaming) {

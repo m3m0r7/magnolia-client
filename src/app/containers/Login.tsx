@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as Action from '@actions/Action';
 import {
   LOGIN_FAILED,
-  LOGIN_SUCCESS,
+  LOGIN_SUCCESS, UPDATE_PAGE_TITLE,
 } from '@actions/Types';
 
 import '@style/components/login.scss';
@@ -17,6 +17,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
 import * as API from "@util/API";
+import {useEffect} from "react";
 
 const { useState, useRef } = React;
 
@@ -26,6 +27,20 @@ export const Login = (props: any) => {
   const passwordRef = useRef(null);
 
   const [ errorInfo, setErrorInfo ] = useState({});
+
+  useEffect(
+    () => {
+      dispatch(
+        Action.Page(
+          UPDATE_PAGE_TITLE,
+          {
+            title: "Sign-In",
+          }
+        )
+      );
+    },
+    []
+  )
 
   const loginAction = () => {
     const id = (idRef.current as any).value;
