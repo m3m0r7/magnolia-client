@@ -174,8 +174,8 @@ export const LiveScreen = (props: any) => {
       const ctx = currentCanvasRef.getContext('2d');
 
       ctx.scale(
-        parseInt(currentCanvasRef.getAttribute('width')),
-        parseInt(currentCanvasRef.getAttribute('height'))
+        1.5,
+        1.5
       );
 
       // High-speed internet
