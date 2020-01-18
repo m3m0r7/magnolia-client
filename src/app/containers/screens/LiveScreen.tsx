@@ -32,6 +32,8 @@ enum renderingTypeEnum {
 
 export const LiveScreen = (props: any) => {
   const dispatch = useDispatch();
+  const defaultWidth = 600;
+  const defaultHeight = 450;
 
   const [ cookies, setCookie, removeCookie ] = useCookies();
   const canvasRef = useRef(null);
@@ -173,9 +175,12 @@ export const LiveScreen = (props: any) => {
       const currentCanvasRef = (canvasRef.current as any);
       const ctx = currentCanvasRef.getContext('2d');
 
+      const targetedContextWidth = parseInt(currentCanvasRef.getAttribute('width'));
+      const targetedContextHeight = parseInt(currentCanvasRef.getAttribute('height'));
+
       ctx.scale(
-        1.5,
-        1.5
+        targetedContextWidth / defaultWidth,
+        targetedContextHeight / defaultHeight
       );
 
       // High-speed internet
@@ -265,7 +270,7 @@ export const LiveScreen = (props: any) => {
               <div className="c-expanded-container__inner">
                 <div className="c-live-image">
                   <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
-                    <canvas ref={canvasRef} width="900" height="675" />
+                    <canvas ref={canvasRef} width={defaultWidth * 1.5} height={defaultHeight * 1.5} />
                   </div>
                   <div className="c-live-header-container">
                     {isReconnecting ? 'Reconnecting...' : updatedAt}
@@ -292,7 +297,7 @@ export const LiveScreen = (props: any) => {
           : <div className="c-live-image-container">
             <div className="c-live-image">
               <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
-                <canvas ref={canvasRef} width="600" height="450" />
+                <canvas ref={canvasRef} width={defaultWidth} height={defaultHeight} />
               </div>
               <div className="c-live-header-container">
                 {isReconnecting ? 'Reconnecting...' : updatedAt}
