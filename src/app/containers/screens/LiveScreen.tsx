@@ -42,6 +42,7 @@ export const LiveScreen = (props: any) => {
   const [ nextUpdate, setNextUpdate ] = useState(0);
   const [ updateInterval, setUpdateInterval ] = useState(0);
   const [ isReconnecting, setIsReconnecting ] = useState(false);
+  const [ isExpandedMode, setIsExpandedMode ] = useState(false);
 
   const selector = useSelector((state: any) => state);
 
@@ -169,7 +170,14 @@ export const LiveScreen = (props: any) => {
         )
       );
 
-      const ctx = (canvasRef.current as any).getContext('2d');
+      const currentCanvasRef = (canvasRef.current as any);
+      const ctx = currentCanvasRef.getContext('2d');
+
+      ctx.scale(
+        parseInt(currentCanvasRef.getAttribute('width')),
+        parseInt(currentCanvasRef.getAttribute('height'))
+      );
+
       // High-speed internet
       if (selector.setting.isEnabledLiveStreaming) {
         setRenderingType(renderingTypeEnum.LIVE);
@@ -244,36 +252,70 @@ export const LiveScreen = (props: any) => {
         }
       };
     },
-    []
+    [
+      isExpandedMode,
+    ]
   );
 
   return (
     <>
-      <div className="c-live-image-container">
-        <div className="c-live-image">
-          <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
-            <canvas ref={canvasRef} width="600" height="450" />
-          </div>
-          <div className="c-live-header-container">
-            {isReconnecting ? 'Reconnecting...' : updatedAt}
-          </div>
-          <div className="c-live-footer-container">
-            <div className="c-live-container-body">
-              <div className="c-live-container-body__icon c-live-container__icon--favorite" onClick={() => favoriteScreen()}><Icon>favorite</Icon></div>
+      {
+        isExpandedMode
+          ? <div className="c-expanded-container">
+              <div className="c-expanded-container__inner">
+                <div className="c-live-image">
+                  <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
+                    <canvas ref={canvasRef} width="900" height="675" />
+                  </div>
+                  <div className="c-live-header-container">
+                    {isReconnecting ? 'Reconnecting...' : updatedAt}
+                  </div>
+                  <div className="c-live-footer-container">
+                    <div className="c-live-container-body">
+                      <div className="c-live-container-body__icon c-live-container__icon--favorite" onClick={() => favoriteScreen()}><Icon>favorite</Icon></div>
+                      <div className="c-live-container-body__icon c-live-container__icon--aspect-ratio" onClick={() => setIsExpandedMode(false)}><Icon>zoom_out</Icon></div>
+                    </div>
+                  </div>
+                  {
+                    renderingType == renderingTypeEnum.STATIC &&
+                    <>
+                      <LinearProgress
+                        className="c-live-remaining-bar"
+                        variant="determinate"
+                        value={remainingValue}
+                      />
+                    </>
+                  }
+                </div>
+              </div>
+            </div>
+          : <div className="c-live-image-container">
+            <div className="c-live-image">
+              <div className={`c-live-image-canvas-body ${isReconnecting ? 'blur' : ''}`}>
+                <canvas ref={canvasRef} width="600" height="450" />
+              </div>
+              <div className="c-live-header-container">
+                {isReconnecting ? 'Reconnecting...' : updatedAt}
+              </div>
+              <div className="c-live-footer-container">
+                <div className="c-live-container-body">
+                  <div className="c-live-container-body__icon c-live-container__icon--favorite" onClick={() => favoriteScreen()}><Icon>favorite</Icon></div>
+                  <div className="c-live-container-body__icon c-live-container__icon--aspect-ratio" onClick={() => setIsExpandedMode(true)}><Icon>zoom_in</Icon></div>
+                </div>
+              </div>
+              {
+                renderingType == renderingTypeEnum.STATIC &&
+                <>
+                  <LinearProgress
+                    className="c-live-remaining-bar"
+                    variant="determinate"
+                    value={remainingValue}
+                  />
+                </>
+              }
             </div>
           </div>
-          {
-            renderingType == renderingTypeEnum.STATIC &&
-              <>
-                <LinearProgress
-                  className="c-live-remaining-bar"
-                  variant="determinate"
-                  value={remainingValue}
-                />
-              </>
-          }
-        </div>
-      </div>
+      }
     </>
   );
 };

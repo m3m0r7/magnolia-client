@@ -72,3 +72,29 @@
     }
   }
 }
+
+.c-expanded-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 56px);
+  width: 100%;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  &__inner {
+    width: 100%;
+  }
+
+  .c-live-image-canvas-body {
+    text-align: center;
+    background-color: #000000;
+  }
+
+  .c-live-image {
+    background-color: #333333;
+    height: 675px;
+    width: 100%;
+    position: relative;
+  }
+}
