@@ -16,7 +16,11 @@ import { useCookies } from "react-cookie";
 import Timeout = NodeJS.Timeout;
 import {Icon} from "@material-ui/core";
 import * as Action from "@actions/Action";
-import {UPDATE_PAGE_TITLE} from "@actions/Types";
+import {ADD_FAVORITE, UPDATE_PAGE_TITLE} from "@actions/Types";
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const { useState, useRef, useEffect } = React;
 
@@ -45,6 +49,7 @@ export const LiveScreen = (props: any) => {
   const [ updateInterval, setUpdateInterval ] = useState(0);
   const [ isReconnecting, setIsReconnecting ] = useState(false);
   const [ isExpandedMode, setIsExpandedMode ] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const selector = useSelector((state: any) => state);
 
@@ -66,7 +71,10 @@ export const LiveScreen = (props: any) => {
         return response.json()
       })
       .then((json: any) => {
-        console.log(json);
+        dispatch(
+          Action.Info(ADD_FAVORITE)
+        );
+        setOpen(true);
       });
   };
 
@@ -264,6 +272,23 @@ export const LiveScreen = (props: any) => {
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={2000}
+        onClose={() => setOpen(false)}
+        message="Success to favorite💗"
+        action={
+          <>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setOpen(false)}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
       {
         isExpandedMode
           ? <div className="c-expanded-container">

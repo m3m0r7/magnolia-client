@@ -18,7 +18,7 @@ import * as API from "@util/API";
 import "@style/components/favorite.scss";
 import moment from "moment";
 import * as Action from "@actions/Action";
-import {UPDATE_PAGE_TITLE} from "@actions/Types";
+import {ADD_FAVORITE, RESOLVE_FAVORITE, UPDATE_PAGE_TITLE} from "@actions/Types";
 
 const { useState, useEffect } = React;
 
@@ -51,6 +51,10 @@ export const FavoritesScreen = (props: any) => {
             title: "Favorites",
           }
         )
+      );
+
+      dispatch(
+        Action.Info(RESOLVE_FAVORITE)
       );
 
       API.call('/api/v1/favorite')

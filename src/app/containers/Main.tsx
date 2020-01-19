@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
+import Badge from '@material-ui/core/Badge';
 import Icon from '@material-ui/core/Icon';
 
 // Load components
@@ -82,7 +83,13 @@ export const Main = (props: any) => {
           />
           <BottomNavigationAction
             label="Favorites"
-            icon={<Icon>favorite</Icon>}
+            icon={
+              context.info.favorite_count > 0
+                ? <Badge badgeContent={context.info.favorite_count} color="primary">
+                    <Icon>favorite</Icon>
+                  </Badge>
+                : <Icon>favorite</Icon>
+            }
           />
           <BottomNavigationAction
             label="Settings"

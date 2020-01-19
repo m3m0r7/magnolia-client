@@ -17,3 +17,9 @@ export const Page = (type: string, options: any = {}) => {
     ...options,
   }
 };
+
+export const Info = (type: string) => {
+  return {
+    type,
+  };
+}
