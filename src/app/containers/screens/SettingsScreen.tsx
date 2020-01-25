@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Device } from './settings/Device';
 import { LiveStreaming } from './settings/LiveStreaming';
 import { Account } from './settings/Account';
+import { Other } from './settings/Other';
 import { useCookies } from 'react-cookie';
 import * as Action from "@actions/Action";
 import {UPDATE_PAGE_TITLE} from "@actions/Types";
@@ -29,6 +30,7 @@ export const SettingsScreen = (props: any) => {
     <>
       <Device />
       <LiveStreaming />
+      <Other />
       <Account />
     </>
   );
