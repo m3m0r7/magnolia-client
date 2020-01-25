@@ -12,6 +12,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from "@material-ui/core/Collapse";
+import Button from "@material-ui/core/Button";
+import GetApp from '@material-ui/icons/GetApp';
 
 import * as API from "@util/API";
 
@@ -37,10 +39,16 @@ interface FavoriteImage {
 
 export const FavoritesScreen = (props: any) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const classes = useStyles(props);
 
   const [ images, setImages ] = useState({});
   const [ listOpenedInfo, setListOpenedInfo ] = useState([]);
+
+  const downloadAll = (date: string) => {
+    window.open(
+      API.path() + "/api/v1/download?date=" + date
+    )
+  }
 
   useEffect(
     () => {
@@ -108,6 +116,12 @@ export const FavoritesScreen = (props: any) => {
                 {listOpenedInfo[toggleIndex] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               <Collapse in={listOpenedInfo[toggleIndex]} timeout="auto" unmountOnExit>
+                <div style={{textAlign: "right", paddingTop: "10px", paddingBottom: "10px"}}>
+                  <Button onClick={() => downloadAll(date)}>
+                    <GetApp />
+                    Download
+                  </Button>
+                </div>
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
                   {items.map((image: any, key) => {
                     return (

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Device = (props: any) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const [ info, setInfo ] = useState(null);
   const [ openInfo, setOpenInfo ] = React.useState(false);
   const [ openVersion, setOpenVersion ] = React.useState(false);
